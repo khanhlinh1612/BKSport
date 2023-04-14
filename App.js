@@ -4,6 +4,10 @@ import Welcome from './src/Welcome';
 import Weather from './src/Weather';
 import Home from './src/Home';
 import Login from './src/Login';
+import Register from './src/Register';
+import Calendar from './src/Calendar';
+import Addtask from './src/Addtask';
+
 import Feedback from './src/Feedback';
 import Information from './src/Information';
 import React, { useState, useEffect } from "react";
@@ -18,6 +22,7 @@ function MyDrawer() {
     <Drawer.Navigator>
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Information" component={Information}  />
+      <Drawer.Screen name="Calendar Management" component={Calendar}  />
       <Drawer.Screen name="Weather" component={Weather} />
       
       <Drawer.Screen name="Feedback" component={Feedback} />
@@ -34,6 +39,8 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Weather" component={Weather} />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}  />
+        <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
+        <Stack.Screen name="Add a task" component={Addtask} />
       </Stack.Navigator>
     </NavigationContainer>
   );

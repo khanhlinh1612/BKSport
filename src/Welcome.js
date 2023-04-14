@@ -11,7 +11,7 @@ export default Welcome = function({navigation}){
         <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.button1}>
           <Text style={styles.buttonText1}>Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button2}>
+        <TouchableOpacity onPress={() => navigation.navigate('Register')} style={styles.button2}>
           <Text style={styles.buttonText2}>Sign up</Text>
         </TouchableOpacity>
       </View>  

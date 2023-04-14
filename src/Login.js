@@ -16,13 +16,14 @@ export default Login  = function({navigation}){
       <View style={styles.mainbox}>
             <View style={styles.phone}>
             <Icon name="user-o" size={20} color="#b97e7e" style={{marginRight: 10}} />
-            <TextInput placeholder="username" style={{flex:1,paddingVertical:0}} />
+            <TextInput placeholder="username" style={{flex:1,paddingVertical:0}} placeholderTextColor = "#b4b4b4"/>
             </View>
 
             <View style={styles.phone}>
             <Icon name="lock" size={20} color="#b97e7e" style={{marginRight: 10}} />
             <TextInput placeholder="password" style={{flex:1,paddingVertical:0}} 
               secureTextEntry= {true}
+              placeholderTextColor = "#b4b4b4"
             />
             </View>
             <TouchableOpacity onPress={()=>{}} ><Text style={{color:'#AA7C7C', fontWeight:'600'} }>Forgot password?</Text></TouchableOpacity>
@@ -44,7 +45,7 @@ export default Login  = function({navigation}){
             </View>
             <View style={{marginTop:15,flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
             <Text>Don't have an account?</Text>
-            <TouchableOpacity onPress={()=>{}}><Text style={{color:'#ff8e4f', fontWeight:'600', marginTop:10}}>Register</Text></TouchableOpacity>
+            <TouchableOpacity onPress={()=> navigation.navigate('Register')}><Text style={{color:'#ff8e4f', fontWeight:'600', marginTop:10}}>Register</Text></TouchableOpacity>
             </View>
            
       </View>
