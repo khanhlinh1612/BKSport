@@ -6,6 +6,7 @@ import Home from './src/Home';
 import Login from './src/Login';
 import Feedback from './src/Feedback';
 import Information from './src/Information';
+import EditInfor from './src/EditInfor';
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -19,7 +20,6 @@ function MyDrawer() {
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Information" component={Information}  />
       <Drawer.Screen name="Weather" component={Weather} />
-      
       <Drawer.Screen name="Feedback" component={Feedback} />
     </Drawer.Navigator>
   );
@@ -34,6 +34,7 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Weather" component={Weather} />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}  />
+        <Stack.Screen name="Edit Information" component={EditInfor}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
