@@ -7,9 +7,10 @@ import Login from './src/Login';
 import Register from './src/Register';
 import Calendar from './src/Calendar';
 import Addtask from './src/Addtask';
-
+import EditInfor from './src/EditInfor';
 import Feedback from './src/Feedback';
 import Information from './src/Information';
+import ControlPage from './src//lightcontrol';
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -24,7 +25,7 @@ function MyDrawer() {
       <Drawer.Screen name="Information" component={Information}  />
       <Drawer.Screen name="Calendar Management" component={Calendar}  />
       <Drawer.Screen name="Weather" component={Weather} />
-      
+      <Drawer.Screen name="Light Control" component={ControlPage} />
       <Drawer.Screen name="Feedback" component={Feedback} />
     </Drawer.Navigator>
   );
@@ -41,6 +42,7 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}  />
         <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
         <Stack.Screen name="Add a task" component={Addtask} />
+        <Stack.Screen name="Edit Infor" component={EditInfor} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

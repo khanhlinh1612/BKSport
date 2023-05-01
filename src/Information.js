@@ -33,7 +33,7 @@ export default Information = function({navigation}){
         
         <View style={styles.scheduleList}>
           {/* render list of schedules */}
-          <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{flexDirection:'row', marginLeft:120}}>
+          <TouchableOpacity onPress={() => navigation.navigate('Edit Infor')} style={{flexDirection:'row', marginLeft:120}}>
             <Icon name="pencil-square-o" size={20} color={'#fff'} style={{marginRight:0}} />
             <Text style={styles.Text_page}>Edit Information</Text>
           </TouchableOpacity>
