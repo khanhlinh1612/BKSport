@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     width: 400,
     height: 250,
     marginBottom: 50,
+   
   },
   subtest:{
     fontSize: 16,

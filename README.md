@@ -1,6 +1,7 @@
 # BKSport
-npm install --global expo-cli to install expo-cli
-npm i to update node module
-expo start to start project
-scan by app Expo Go on Mobile
-Or you can view project at : https://expo.dev/@linh.pham1612/BKSport?serviceType=classic&distribution=expo-go
+
+1. npm install --global expo-cli to install expo-cli
+2. npm i to update node module
+3. expo start --tunnel to start project
+4. scan by app Expo Go on Mobile
+5. Or you can view project at : https://expo.dev/@linh.pham1612/BKSport?serviceType=classic&distribution=expo-go
