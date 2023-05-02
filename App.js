@@ -11,6 +11,8 @@ import EditInfor from './src/EditInfor';
 import Feedback from './src/Feedback';
 import Information from './src/Information';
 import ControlPage from './src//lightcontrol';
+import SuggestCalendar from './src/SuggestCalendar';
+import Otp from './src/Otp';
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -27,6 +29,8 @@ function MyDrawer() {
       <Drawer.Screen name="Weather" component={Weather} />
       <Drawer.Screen name="Light Control" component={ControlPage} />
       <Drawer.Screen name="Feedback" component={Feedback} />
+      <Drawer.Screen name="Suggestion" component={SuggestCalendar} />
+      <Drawer.Screen name="OTP" component={OTP} />
     </Drawer.Navigator>
   );
 }
