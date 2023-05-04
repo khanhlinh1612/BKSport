@@ -15,7 +15,6 @@
     "@react-navigation/native-stack": "^6.9.12",
     "axios": "^1.3.4",
     "expo": "^48.0.9",
-    "expo-updates": "^0.16.4",
     "lottie-ios": "^3.5.0",
     "lottie-react-native": "5.1.4",
     "moment": "^2.29.4",
@@ -29,9 +28,6 @@
     "react-native-screens": "~3.20.0",
     "react-native-vector-icons": "^9.2.0",
     "reactnative": "^0.0.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.20.0"
   },
   "private": true
 }

@@ -61,7 +61,7 @@ export default Home_Admin = function({navigation}){
           {render_calendar('Wednesday','09:00','10:30')}
           {render_calendar('Friday','15:30','17:00')}
           {render_calendar('Saturday','07:00','08:30')}
-          <TouchableOpacity onPress={() => navigation.navigate('Calendar Management')} style={{flexDirection:'row', marginLeft:140, marginBottom:15}}>
+          <TouchableOpacity onPress={() => navigation.navigate('Watering System')} style={{flexDirection:'row', marginLeft:140, marginBottom:15}}>
           <Text style={styles.Text_page}>Pump schedule</Text>
           <Icon name="arrow-right" size={20} color={'#ffffff'} style={{marginLeft: 10}} />
       </TouchableOpacity>

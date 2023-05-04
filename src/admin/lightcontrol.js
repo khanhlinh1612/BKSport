@@ -28,7 +28,7 @@ const ControlPage = () => {
     <View style={styles.container}>
       <LottieView
         style={styles.lightImage}
-        source={require('../assets/light.json')} autoPlay loop speed={2} 
+        source={require('./../../assets/light.json')} autoPlay loop speed={2} 
       />
       <Text style={styles.textPicker}>
         Choose the color
