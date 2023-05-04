@@ -4,7 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
 import LottieView from 'lottie-react-native';
 const AIO_USERNAME = 'doanladeproject';
-const AIO_KEY = 'aio_gCjQ246rdCn7N6ts5Y0FHroayI14';
+const AIO_KEY = 'aio_BXfV44SUfgaHNFHaIOP0l5FvKZrF';
 const AIO_FEED = 'led';
 
 const windowWidth = Dimensions.get('window').width;
@@ -50,7 +50,7 @@ const ControlPage = () => {
         style={[styles.controlButton, { backgroundColor:'orange' }]}
         onPress={updateLightStatus(selectedValue)}
       >
-        <Text style={styles.buttonText}>{selectedValue}</Text>
+        <Text style={styles.buttonText}>Change Color</Text>
       </TouchableOpacity>
     </View>
   );
