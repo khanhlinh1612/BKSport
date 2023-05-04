@@ -39,17 +39,17 @@ export default Home_Admin = function({navigation}){
     return () => clearInterval(intervalId2);
   }, []);
     return (
-    <ImageBackground source={require('./../img/background4.jpg')} style={styles.background}>
+    <ImageBackground source={require('./../../img/background4.jpg')} style={styles.background}>
         <View style={styles.container}>
       <View style={styles.avatarContainer}>
-        <LottieView source={require('./../assets/avatar.json')} autoPlay loop speed={0.5} style={styles.avatar} />
+        <LottieView source={require('../../assets/avatar.json')} autoPlay loop speed={0.5} style={styles.avatar} />
       </View>
       <View style={styles.userInfoContainer}>
         <Text style={styles.userName}>Admin</Text>
       </View>
       <View style={styles.time1}><Text style={styles.date}>{formattedDate1}</Text></View>
       <View style={styles.box_scheduleTitle}>
-            <Image source={require('./../img/lighting.png')} style={styles.humid_img} />
+            <Image source={require('./../../img/lighting.png')} style={styles.humid_img} />
             <Text style={styles.scheduleTitle}>Light status:  <Text>{light ? <Text>{light}</Text> : <Text style={styles.script}>Loading...</Text>} %</Text></Text>
       </View>
       <View style={styles.scheduleContainer}>

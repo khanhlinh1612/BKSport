@@ -4,7 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
 import LottieView from 'lottie-react-native';
 const AIO_USERNAME = 'doanladeproject';
-const AIO_KEY = 'aio_BXfV44SUfgaHNFHaIOP0l5FvKZrF';
+const abc = 'aio_Xein14SxFalZ412rCRLTAaljvEaQ';
 const AIO_FEED = 'led';
 
 const windowWidth = Dimensions.get('window').width;
@@ -16,7 +16,7 @@ const ControlPage = () => {
       value,
     }, {
       headers: {
-        'X-AIO-Key': AIO_KEY,
+        'X-AIO-Key': abc,
         'Content-Type': 'application/json',
       },
     })

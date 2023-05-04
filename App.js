@@ -11,7 +11,7 @@ import EditInfor from './src/EditInfor';
 import Feedback from './src/Feedback';
 import Information from './src/Information';
 import ControlPage from './src//lightcontrol';
-import HomeAdmin from './src/HomeAdmin';
+import HomeAdmin from './src/admin/HomeAdmin';
 import SuggestCalendar from './src/SuggestCalendar';
 import OTP from './src/Otp';
 import ManageCustomer from './src/admin/ManageCustomer';
@@ -54,7 +54,7 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}  />
         <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
         <Stack.Screen name="Add A Task" component={Addtask} />
-        <Stack.Screen name="Edit Infor" component={EditInfor} options={{ headerShown: false }} />
+        <Stack.Screen name="Edit Infor" component={EditInfor}  />
         <Stack.Screen name="Customer's Detail" component={CustomerDetail} />
         <Stack.Screen name="Customer's Calendar" component={CustomerCalendar} />
         <Stack.Screen name="Add Calendar" component={AddCalendar} />
