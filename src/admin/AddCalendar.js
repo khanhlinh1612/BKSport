@@ -13,7 +13,6 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
-import { Directions } from "react-native-gesture-handler";
 const { width, height } = Dimensions.get("screen");
 
 export default AddCalendar = function ({ navigation }) {
