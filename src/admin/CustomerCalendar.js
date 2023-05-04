@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import CalendarStrip from 'react-native-calendar-strip';
 const {width, height} = Dimensions.get('screen');
 
-export default Calendar = function({navigation}) {
+export default CustomerCalendar = function({navigation}) {
   const events = [
     {
       id: 1,
@@ -109,7 +109,7 @@ export default Calendar = function({navigation}) {
       </View>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('Add A Task')}
+        onPress={() => navigation.navigate('Add Calendar')}
         style={styles.button1}>
         <Icon name="plus" size={16} color="#fff" style={styles.icon} />
         <Text style={styles.buttonText1}>Add Task</Text>

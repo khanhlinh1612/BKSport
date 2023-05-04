@@ -16,7 +16,7 @@ import moment from "moment";
 import { Directions } from "react-native-gesture-handler";
 const { width, height } = Dimensions.get("screen");
 
-export default Addtask = function ({ navigation }) {
+export default AddCalendar = function ({ navigation }) {
   const data = [
     { id: 1, label: "Round 1" },
     { id: 2, label: "Group Stage" },
@@ -191,7 +191,7 @@ export default Addtask = function ({ navigation }) {
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Calendar Management")}
+          onPress={() => navigation.navigate("Customer's Calendar")}
           style={styles.button1}
         >
           <Text style={styles.buttonText1}>Add Task</Text>

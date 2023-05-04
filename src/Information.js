@@ -6,7 +6,7 @@ import LottieView from 'lottie-react-native';
 const render_calendar = (iconname,name,value) => {
   return (
     <View style={styles.infor_list}>
-      <Icon name={iconname} size={30} color="#ffffff" style={{marginRight: 10, width:20} } />
+      <Icon name={iconname} size={30} color="#ffffff" style={{marginRight: 10, width: 30} } />
       <View style={{flexDirection:'column', marginLeft:10}}>
             <Text style={styles.text_list}>
                 {name}

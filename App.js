@@ -12,7 +12,12 @@ import Feedback from './src/Feedback';
 import Information from './src/Information';
 import ControlPage from './src//lightcontrol';
 import SuggestCalendar from './src/SuggestCalendar';
-import Otp from './src/Otp';
+import OTP from './src/Otp';
+import ManageCustomer from './src/admin/ManageCustomer';
+import CustomerDetail from './src/admin/CustomerDetail';
+import CustomerCalendar from './src/admin/CustomerCalendar';
+import AddCalendar from './src/admin/AddCalendar';
+
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -31,6 +36,7 @@ function MyDrawer() {
       <Drawer.Screen name="Feedback" component={Feedback} />
       <Drawer.Screen name="Suggestion" component={SuggestCalendar} />
       <Drawer.Screen name="OTP" component={OTP} />
+      <Drawer.Screen name="Customer Management" component={ManageCustomer} />
     </Drawer.Navigator>
   );
 }
@@ -45,8 +51,11 @@ export default function App() {
         <Stack.Screen name="Weather" component={Weather} />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}  />
         <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
-        <Stack.Screen name="Add a task" component={Addtask} />
+        <Stack.Screen name="Add A Task" component={Addtask} />
         <Stack.Screen name="Edit Infor" component={EditInfor} options={{ headerShown: false }} />
+        <Stack.Screen name="Customer's Detail" component={CustomerDetail} />
+        <Stack.Screen name="Customer's Calendar" component={CustomerCalendar} />
+        <Stack.Screen name="Add Calendar" component={AddCalendar} />
       </Stack.Navigator>
     </NavigationContainer>
   );
