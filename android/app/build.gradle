@@ -69,6 +69,7 @@ react {
 
 // Override `hermesEnabled` by `expo.jsEngine`
 ext {
+  e
 }
 
 /**
