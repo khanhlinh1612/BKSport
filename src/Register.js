@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -10,17 +10,100 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 const { width, height } = Dimensions.get("screen");
+import CustomerRepo from "./repositories/CustomerRepo";
+
 export default Register = function ({ navigation }) {
+  const [username, setUsername] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmpassword, setConfirmpassword] = useState("");
+  const [customer, setCustomer] = useState([]);
+
+  useEffect(() => {
+    CustomerRepo.getAllCustomer()
+      .then((result) => {
+        setCustomer(result);
+      })
+      .catch((error) => {
+        console.error("Error fetching customer:", error);
+      });
+  }, []);
+
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
+  const handleRegister = () => {
+    var flag = false;
+
+    if (
+      username === "" ||
+      phone === "" ||
+      email === "" ||
+      password === "" ||
+      confirmpassword === ""
+    ) {
+      alert("Please enter all register infomation");
+      return;
+    }
+
+    if (password !== confirmpassword) {
+      alert("The password confirmation does not match!");
+      return;
+    }
+
+    customer.map((ele) => {
+      if (ele.name === username) {
+        alert("Username was used, please enter another username!");
+        flag = true;
+      }
+    });
+
+    if (flag) {
+      return;
+    }
+
+    if (
+      isNaN(phone) ||
+      phone.includes("e") ||
+      phone.includes(".") ||
+      phone.length < 10 ||
+      phone.length > 11
+    ) {
+      alert("Invalid phone number!");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      alert("Invalid email!");
+      return;
+    }
+
+    CustomerRepo.createCustomer(username, phone, password, email)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.error("Error creating customer:", error);
+      });
+
+    navigation.navigate("Login")
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-
       <TouchableOpacity
         onPress={() => navigation.navigate("Welcome")}
         style={{ alignSelf: "left", marginLeft: 23 }}
       >
         <Icon name="arrow-left" size={30} />
       </TouchableOpacity>
-      
+
       <Text
         style={{
           fontWeight: "bold",
@@ -33,7 +116,6 @@ export default Register = function ({ navigation }) {
       </Text>
 
       <View style={styles.mainbox}>
-
         <View style={styles.phone}>
           <Icon
             name="user-o"
@@ -44,7 +126,8 @@ export default Register = function ({ navigation }) {
           <TextInput
             placeholder="Username"
             style={{ flex: 1, paddingVertical: 0 }}
-            placeholderTextColor = "#b4b4b4"
+            placeholderTextColor="#b4b4b4"
+            onChangeText={(newText) => setUsername(newText)}
           />
         </View>
 
@@ -58,7 +141,8 @@ export default Register = function ({ navigation }) {
           <TextInput
             placeholder="Phone number"
             style={{ flex: 1, paddingVertical: 0 }}
-            placeholderTextColor = "#b4b4b4"
+            placeholderTextColor="#b4b4b4"
+            onChangeText={(newText) => setPhone(newText)}
           />
         </View>
 
@@ -72,7 +156,8 @@ export default Register = function ({ navigation }) {
           <TextInput
             placeholder="Email"
             style={{ flex: 1, paddingVertical: 0 }}
-            placeholderTextColor = "#b4b4b4"
+            placeholderTextColor="#b4b4b4"
+            onChangeText={(newText) => setEmail(newText)}
           />
         </View>
 
@@ -87,7 +172,8 @@ export default Register = function ({ navigation }) {
             placeholder="Password"
             style={{ flex: 1, paddingVertical: 0 }}
             secureTextEntry={true}
-            placeholderTextColor = "#b4b4b4"
+            placeholderTextColor="#b4b4b4"
+            onChangeText={(newText) => setPassword(newText)}
           />
         </View>
 
@@ -102,12 +188,13 @@ export default Register = function ({ navigation }) {
             placeholder="Confirm password"
             style={{ flex: 1, paddingVertical: 0 }}
             secureTextEntry={true}
-            placeholderTextColor = "#b4b4b4"
+            placeholderTextColor="#b4b4b4"
+            onChangeText={(newText) => setConfirmpassword(newText)}
           />
         </View>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate("Login")}
+          onPress={() => handleRegister()}
           style={{
             marginTop: 20,
             backgroundColor: "#e77c7c",
