@@ -1,5 +1,4 @@
-import React from 'react';
-import {
+import React, { useState, useEffect } from "react";import {
   StyleSheet,
   View,
   Text,
@@ -10,81 +9,75 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CalendarStrip from 'react-native-calendar-strip';
+import SportSchedRepo from "../repositories/SportSchedRepo";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const {width, height} = Dimensions.get('screen');
 
-export default Calendar = function({navigation}) {
-  const events = [
-    {
-      id: 1,
-      title: 'Match 1',
-      description: 'Friendly match',
-      startTime: '09:30',
-      endTime: '10:00',
-    },
-    {
-      id: 2,
-      title: 'Match 2',
-      description: 'Friendly match',
-      startTime: '14:00',
-      endTime: '14:30',
-    },
-    {
-      id: 3,
-      title: 'Match 3',
-      description: 'Friendly match',
-      startTime: '18:00',
-      endTime: '19:00',
-    },
-    {
-        id: 4,
-        title: 'Match 4',
-        description: 'Friendly match',
-        startTime: '09:30',
-        endTime: '10:00',
-      },
-      {
-        id: 5,
-        title: 'Match 5',
-        description: 'Friendly match',
-        startTime: '14:00',
-        endTime: '14:30',
-      },
-      {
-        id: 6,
-        title: 'Match 6',
-        description: 'Friendly match',
-        startTime: '18:00',
-        endTime: '19:00',
-      },
-      {
-        id: 7,
-        title: 'Match 7',
-        description: 'Friendly match',
-        startTime: '09:30',
-        endTime: '10:00',
-      },
-      {
-        id: 8,
-        title: 'Match 8',
-        description: 'Friendly match',
-        startTime: '14:00',
-        endTime: '14:30',
-      },
-      {
-        id: 9,
-        title: 'Match 9',
-        description: 'Friendly match',
-        startTime: '18:00',
-        endTime: '19:00',
-      },
-  ];
+export default Calendar = function ({ route, navigation }) {
+  const [sched, setSched] = useState([]);
+  const [uptSched, setUptSched] = useState([]);
 
-  const renderItem = ({item}) => (
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [route.params]);
+
+  const getData = () => {
+    try {
+      AsyncStorage.getItem("CustomerID").then((val) => {
+        if (val) {
+          SportSchedRepo.getSportSchedByUserID(val)
+            .then((result) => {
+              setSched(result);
+              setUptSched(result);
+            })
+            .catch((error) => {
+              console.error("Error fetching schedule:", error);
+            });
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleFilterDate = (date) => {
+    // console.log(sched);
+    // Convert string to array of time
+    date = JSON.stringify(date);
+    date = date.slice(1, -1);
+    const dateArray = date.split("-");
+    dateArray[2] = dateArray[2].substring(0, 2);
+
+    // Compare date of sched and picked date
+    var tmpSched = [];
+    sched.map((item) => {
+      const schedDate = item.date_time.split("-");
+      if (
+        schedDate[0] === dateArray[2] &&
+        schedDate[2] === dateArray[0] &&
+        schedDate[1] === dateArray[1]
+      ) {
+        tmpSched.push(item);
+      } else {
+        return;
+      }
+    });
+    // console.log(tmpSched);
+    setUptSched(tmpSched);
+  };
+
+  const renderItem = ({ item }) => (
     <View style={styles.eventItem}>
-      <Text style={styles.eventTitle}>{item.title}</Text>
-      <Text style={styles.eventDescription}>{item.description}</Text>
+      <Text style={styles.eventTitle}>{item.name}</Text>
+      <Text style={styles.eventDescription}>{item.category}</Text>
+      <Text style={styles.eventTime}>{`Date: ${item.date_time}`}</Text>
+      <Text style={styles.eventTime}>{`Start time: ${item.start_time}`}</Text>
       <Text style={styles.eventTime}>
-        {item.startTime} {' - '} {item.endTime}
+        {`Reserved time: ${item.duration} minutes`}
       </Text>
     </View>
   );
@@ -94,34 +87,36 @@ export default Calendar = function({navigation}) {
       <View style={styles.calendarContainer}>
         <CalendarStrip
           style={styles.calendar}
-          calendarColor={'#49B583'}
-          highlightDateNameStyle={{color: 'black'}}
-          highlightDateNumberStyle={{color: 'black'}}
+          calendarColor={"#49B583"}
+          highlightDateNameStyle={{ color: "black" }}
+          highlightDateNumberStyle={{ color: "black" }}
           daySelectionAnimation={{
-            type: 'background',
+            type: "background",
             duration: 200,
-            highlightColor: '#49B583',
+            highlightColor: "#49B583",
           }}
-          calendarHeaderStyle={{color: '#000'}}
-          dateNumberStyle={{color: '#fff'}}
-          dateNameStyle={{color: '#fff'}}
+          calendarHeaderStyle={{ color: "#000" }}
+          dateNumberStyle={{ color: "#fff" }}
+          dateNameStyle={{ color: "#fff" }}
+          onDateSelected={(date) => handleFilterDate(date)}
         />
       </View>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('Add A Task')}
-        style={styles.button1}>
+        onPress={() => navigation.navigate("Add A Task")}
+        style={styles.button1}
+      >
         <Icon name="plus" size={16} color="#fff" style={styles.icon} />
         <Text style={styles.buttonText1}>Add Task</Text>
       </TouchableOpacity>
 
       <View style={styles.eventListContainer}>
-      <FlatList
-        data={events}
-        renderItem={renderItem}
-        keyExtractor={item => item.id.toString()}
-        contentContainerStyle={styles.eventList}
-      />
+        <FlatList
+          data={uptSched}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={styles.eventList}
+        />
       </View>
     </SafeAreaView>
   );

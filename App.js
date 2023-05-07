@@ -45,6 +45,10 @@ async function openDatabase() {
     );
   }
 
+  else {
+    return SQLite.openDatabase("BKSPORT.db");
+  }
+
   await FileSystem.downloadAsync(
     Asset.fromModule(require("./assets/BKSPORT.db")).uri,
     FileSystem.documentDirectory + "SQLite/BKSPORT.db"

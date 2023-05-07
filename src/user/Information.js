@@ -28,13 +28,17 @@ const render_calendar = (iconname, name, value) => {
     </View>
   );
 };
-export default Information = function ({ navigation }) {
+export default Information = function ({ route, navigation }) {
 
   const [info, setInfo] = useState(null);
 
   useEffect(() => {
     getData();
-  });
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [route.params]);
 
   // console.log(info);
 

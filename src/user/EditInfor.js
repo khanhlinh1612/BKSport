@@ -135,7 +135,7 @@ export default EditInfor = function ({ navigation }) {
     }
 
     alert("Update successfully!");
-    navigation.navigate("Information");
+    navigation.navigate("Information", {render: true});
   };
 
   return (
