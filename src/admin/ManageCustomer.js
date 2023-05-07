@@ -7,64 +7,71 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
-  ScrollView,
+  Alert
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function ManageCustomer({ navigation }) {
+  const alert_delete = () => {
+    Alert.alert(
+      'Warning',
+      'Are you sure you want to delete this user? ',
+  [   { text: 'OK', onPress: () => console.log('OK Pressed') }  ]
+    );
+  }
   const DATA = [
     {
       id: "1",
       name: "User 1",
-      avatar: "https://via.placeholder.com/150",
+      avatar: "https://thuthuatnhanh.com/wp-content/uploads/2022/07/anh-avatar-dep-chat-nu-390x390.jpg",
       nextMatch: "Tuesday, 09:30 AM",
     },
     {
       id: "2",
       name: "User 2",
-      avatar: "https://via.placeholder.com/150",
+      avatar: "https://thuthuatnhanh.com/wp-content/uploads/2022/07/anh-avatar-dep-chat-nu-390x390.jpg",
       nextMatch: "Wednesday, 10:00 AM",
     },
     {
       id: "3",
       name: "User 3",
-      avatar: "https://via.placeholder.com/150",
+      avatar: "https://thuthuatnhanh.com/wp-content/uploads/2022/07/anh-avatar-dep-chat-nu-390x390.jpg",
       nextMatch: "Thursday, 11:00 PM",
     },
     {
       id: "4",
       name: "User 4",
-      avatar: "https://via.placeholder.com/150",
+      avatar: "https://thuthuatnhanh.com/wp-content/uploads/2022/07/anh-avatar-dep-chat-nu-390x390.jpg",
       nextMatch: "Tuesday, 09:30 AM",
     },
     {
       id: "5",
       name: "User 5",
-      avatar: "https://via.placeholder.com/150",
+      avatar: "https://thuthuatnhanh.com/wp-content/uploads/2022/07/anh-avatar-dep-chat-nu-390x390.jpg",
       nextMatch: "Wednesday, 10:00 AM",
     },
     {
       id: "6",
       name: "User 6",
-      avatar: "https://via.placeholder.com/150",
+      avatar: "https://thuthuatnhanh.com/wp-content/uploads/2022/07/anh-avatar-dep-chat-nu-390x390.jpg",
       nextMatch: "Thursday, 11:00 PM",
     },
     {
       id: "7",
       name: "User 7",
-      avatar: "https://via.placeholder.com/150",
+      avatar: "https://thuthuatnhanh.com/wp-content/uploads/2022/07/anh-avatar-dep-chat-nu-390x390.jpg",
       nextMatch: "Tuesday, 09:30 AM",
     },
     {
       id: "8",
       name: "User 8",
-      avatar: "https://via.placeholder.com/150",
+      avatar: "https://thuthuatnhanh.com/wp-content/uploads/2022/07/anh-avatar-dep-chat-nu-390x390.jpg",
       nextMatch: "Wednesday, 10:00 AM",
     },
     {
       id: "9",
       name: "User 9",
-      avatar: "https://via.placeholder.com/150",
+      avatar: "https://thuthuatnhanh.com/wp-content/uploads/2022/07/anh-avatar-dep-chat-nu-390x390.jpg",
       nextMatch: "Thursday, 11:00 PM",
     },
   ];
@@ -76,12 +83,21 @@ export default function ManageCustomer({ navigation }) {
     >
       <Image source={{ uri: item.avatar }} style={styles.avatar} />
       <View style={styles.info}>
-        <Text style={styles.name}>{item.name}</Text>
+        <View style={{flexDirection:'row'}}>
+            <Text style={styles.name}>{item.name}</Text>
+              <TouchableOpacity onPress={alert_delete} style={{flexDirection:'column' , alignContent:'flex-end', marginLeft:180}}>
+              <Icon name="close" size={25}  color="#900" />
+              </TouchableOpacity>
+            
+        </View>
+        
         <View style={styles.nextMatch}>
           <Text style={styles.nextMatchText}>Next match</Text>
           <Text style={styles.nextMatchTime}>{item.nextMatch}</Text>
         </View>
+        
       </View>
+
     </TouchableOpacity>
   );
 
@@ -112,7 +128,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   item: {
-    backgroundColor: "#FCA311",
+    backgroundColor: "#E1ECE9",
     borderRadius: 10,
     padding: 10,
     marginVertical: 10,
@@ -134,6 +150,7 @@ const styles = StyleSheet.create({
   },
   info: {
     flex: 1,
+    flexDirection:'column',
   },
   name: {
     fontSize: 16,

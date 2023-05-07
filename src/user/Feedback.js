@@ -9,7 +9,7 @@ export default Feedback  = function({navigation}){
     const [comment,setComment] = useState('');
     const [name,setName] = useState('');
     const [phone,setPhone] = useState('');
-    const [email,setEmail] = useState('');
+    const [title,setTitle] = useState('');
     const handleSubmit =() =>{
         console.log('Gửi bình luận : ,comment');
         setComment('');
@@ -38,13 +38,14 @@ export default Feedback  = function({navigation}){
                     </View>
                 </View>
             </View>
-            <View style={styles.container1}>
-                    <Text style={styles.text_name}>Email Address</Text>
+            
+                <View style={styles.container1}>
+                    <Text style={styles.text_name}>Title Feedback</Text>
                     <View style={styles.phone}>              
-                    <TextInput placeholder="+ 91 00000 00000" style={{flex:1,paddingVertical:0,fontSize:13}} value={email}
-                        onChangeText={(text) => setEmail(text)} />
+                    <TextInput placeholder="title" style={{flex:1,paddingVertical:0,fontSize:13}} value={title}
+                        onChangeText={(text) => setTitle(text)} />
                     </View>
-            </View>
+                </View>
             <View style={styles.container1}>
                     <Text style={styles.text_name}>Share your experience scaling</Text>
                     {value < 20 ? <View style={{flexDirection:'row',justifyContent:'space-between'}}><Image source={require('../../img/worst.png')} style={styles.logo} /> 

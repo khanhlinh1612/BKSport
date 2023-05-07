@@ -20,6 +20,8 @@ import CustomerCalendar from "./src/admin/CustomerCalendar";
 import AddCalendar from "./src/admin/AddCalendar";
 import WateringSystem from "./src/admin/WateringSystem";
 import AddPumpTask from "./src/admin/AddPumpTask";
+import FeedbackDetail from "./src/admin/FeedbackDetail";
+import ViewFeedbackAdmin from "./src/admin/ViewFeedbackAdmin";
 import * as SQLite from "expo-sqlite";
 import * as FileSystem from "expo-file-system";
 import { Asset } from "expo-asset";
@@ -74,6 +76,7 @@ function MyDrawer1() {
       <Drawer1.Screen name="Light Control" component={ControlPage} />
       <Drawer1.Screen name="Customer Management" component={ManageCustomer} />
       <Drawer1.Screen name="Watering System" component={WateringSystem} />
+      <Drawer1.Screen name="ViewFeedback" component={ViewFeedbackAdmin} />
     </Drawer1.Navigator>
   );
 }
@@ -126,6 +129,7 @@ export default function App() {
         <Stack.Screen name="Customer's Calendar" component={CustomerCalendar} />
         <Stack.Screen name="Add Calendar" component={AddCalendar} />
         <Stack.Screen name="Add Pump Task" component={AddPumpTask} />
+        <Stack.Screen name="FeedbackDetail" component={FeedbackDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );
