@@ -1,19 +1,19 @@
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Welcome from "./src/Welcome";
-import Weather from "./src/Weather";
-import Home from "./src/Home";
-import Login from "./src/Login";
-import Register from "./src/Register";
-import Calendar from "./src/Calendar";
-import Addtask from "./src/Addtask";
-import EditInfor from "./src/EditInfor";
-import Feedback from "./src/Feedback";
-import Information from "./src/Information";
+import Welcome from "./src/general/Welcome";
+import Weather from "./src/user/Weather";
+import Home from "./src/user/Home";
+import Login from "./src/general/Login";
+import Register from "./src/general/Register";
+import Calendar from "./src/user/Calendar";
+import Addtask from "./src/user/Addtask";
+import EditInfor from "./src/user/EditInfor";
+import Feedback from "./src/user/Feedback";
+import Information from "./src/user/Information";
 import ControlPage from "./src/admin/lightcontrol";
 import HomeAdmin from "./src/admin/HomeAdmin";
-import SuggestCalendar from "./src/SuggestCalendar";
-import OTP from "./src/Otp";
+import SuggestCalendar from "./src/user/SuggestCalendar";
+import OTP from "./src/user/Otp";
 import ManageCustomer from "./src/admin/ManageCustomer";
 import CustomerDetail from "./src/admin/CustomerDetail";
 import CustomerCalendar from "./src/admin/CustomerCalendar";
@@ -29,7 +29,7 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
-
+const Drawer1 = createDrawerNavigator(); 
 async function openDatabase() {
   const database = SQLite.openDatabase("BKSPORT.db");
   database._db.close();
@@ -57,17 +57,31 @@ function MyDrawer() {
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Information" component={Information} />
       <Drawer.Screen name="Calendar Management" component={Calendar} />
-      <Drawer.Screen name="Weather" component={Weather} />
-      <Drawer.Screen name="Light Control" component={ControlPage} />
-      <Drawer.Screen name="Feedback" component={Feedback} />
-      <Drawer.Screen name="HomeAdmin" component={HomeAdmin} />
+      <Drawer.Screen name="Weather" component={Weather} />     
+      <Drawer.Screen name="Feedback" component={Feedback} /> 
       <Drawer.Screen name="Suggestion" component={SuggestCalendar} />
       <Drawer.Screen name="OTP" component={OTP} />
-      <Drawer.Screen name="Customer Management" component={ManageCustomer} />
-      <Drawer.Screen name="Watering System" component={WateringSystem} />
     </Drawer.Navigator>
   );
 }
+
+
+function MyDrawer1() {
+  return (
+    <Drawer1.Navigator>
+      <Drawer1.Screen name="HomeAdmin" component={HomeAdmin} />
+      <Drawer1.Screen name="Weather" component={Weather} />
+      <Drawer1.Screen name="Light Control" component={ControlPage} />
+      <Drawer1.Screen name="Customer Management" component={ManageCustomer} />
+      <Drawer1.Screen name="Watering System" component={WateringSystem} />
+    </Drawer1.Navigator>
+  );
+}
+
+
+
+
+
 
 export default function App() {
   const [db, setDb] = useState(null);
@@ -87,6 +101,11 @@ export default function App() {
         <Stack.Screen
           name="MyDrawer"
           component={MyDrawer}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="MyDrawer1"
+          component={MyDrawer1}
           options={{ headerShown: false }}
         />
         <Stack.Screen name="Home" component={Home} />

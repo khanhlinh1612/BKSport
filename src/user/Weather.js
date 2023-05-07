@@ -73,7 +73,7 @@ export default function Weather() {
       <Text style={styles.time}>{date.toLocaleTimeString()}</Text>
       <View style={styles.time1}><Text style={styles.date}>{formattedDate1}</Text></View>
       <View style={styles.box}>
-        <LottieView source={require('./../assets/animation.json')} autoPlay loop speed={0.5}  style={styles.logo} />
+        <LottieView source={require('../../assets/animation.json')} autoPlay loop speed={0.5}  style={styles.logo} />
        
         {temparature > 33 ? <Text>It's quite hot today</Text> : (temparature < 20 ? <Text>It's quite cold today</Text>: null)}
         {(temparature > 20 && temparature <33 && humid > 40 && humid < 70) ? <Text>It's great for a football game</Text>: null }
@@ -82,17 +82,17 @@ export default function Weather() {
       </View>
       <View style={styles.box1}>
         <View style={styles.humid}>
-          <Image source={require('./../img/humid.png')} style={styles.humid_img} />
+          <Image source={require('../../img/humid.png')} style={styles.humid_img} />
           <Text style={styles.humid_value}>{humid ? <Text>{humid}</Text> : <Text style={styles.script}>Loading...</Text>}%</Text>
           <Text style={styles.humid_script}>Humidity</Text>
         </View>
         <View style={styles.humid}>
-          <Image source={require('./../img/lighting.png')} style={styles.humid_img} />
+          <Image source={require('../../img/lighting.png')} style={styles.humid_img} />
           <Text style={styles.humid_value}>{light ? <Text>{light}</Text> : <Text style={styles.script}>Loading...</Text>} %</Text>
           <Text style={styles.humid_script}>Lighting</Text>
         </View>
         <View style={styles.humid}>
-          <Image source={require('./../img/tempa.png')} style={styles.humid_img} />
+          <Image source={require('../../img/tempa.png')} style={styles.humid_img} />
           <Text style={styles.humid_value}>{temparature ? <Text>{temparature}</Text> : <Text style={styles.script}>Loading...</Text>}{'\u00b0'}C</Text>
           <Text style={styles.humid_script}>Temperature</Text>
         </View>

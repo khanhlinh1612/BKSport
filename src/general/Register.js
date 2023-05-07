@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 const { width, height } = Dimensions.get("screen");
-import CustomerRepo from "./repositories/CustomerRepo";
+import CustomerRepo from "../repositories/CustomerRepo";
 
 export default Register = function ({ navigation }) {
   const [username, setUsername] = useState("");
@@ -92,7 +92,7 @@ export default Register = function ({ navigation }) {
         console.error("Error creating customer:", error);
       });
 
-    navigation.navigate("Login")
+    navigation.navigate("Welcome")
   };
 
   return (

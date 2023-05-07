@@ -36,7 +36,7 @@ export default Welcome = function ({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Image source={require("./../img/home.jpg")} style={styles.logo} />
+      <Image source={require("../../img/home.jpg")} style={styles.logo} />
       <Text style={styles.title}>Welcome to BKSport!</Text>
       <Text style={styles.subtest}>
         Make it more convenient for you to book a pitch

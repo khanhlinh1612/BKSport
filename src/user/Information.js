@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
-import CustomerRepo from "./repositories/CustomerRepo";
-import AdminRepo from "./repositories/AdminRepo";
+import CustomerRepo from "../repositories/CustomerRepo";
+import AdminRepo from "../repositories/AdminRepo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/FontAwesome";
 import LottieView from "lottie-react-native";
@@ -69,13 +69,13 @@ export default Information = function ({ navigation }) {
 
   return (
     <ImageBackground
-      source={require("./../img/background9.jpg")}
+      source={require("../../img/background9.jpg")}
       style={styles.background}
     >
       <View style={styles.container}>
         <View style={styles.avatarContainer}>
           <LottieView
-            source={require("./../assets/avatar.json")}
+            source={require("../../assets/avatar.json")}
             autoPlay
             loop
             speed={0.5}

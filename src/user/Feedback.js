@@ -20,7 +20,7 @@ export default Feedback  = function({navigation}){
     }
   return (
     <SafeAreaView style={styles.container}>
-        <LottieView source={require('./../assets/feedback2.json')} autoPlay={true} loop speed={1}  style={styles.logo1} />
+        <LottieView source={require('../../assets/feedback2.json')} autoPlay={true} loop speed={1}  style={styles.logo1} />
       <View style={styles.mainbox}>
             <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                 <View style={styles.container1}>
@@ -47,39 +47,39 @@ export default Feedback  = function({navigation}){
             </View>
             <View style={styles.container1}>
                     <Text style={styles.text_name}>Share your experience scaling</Text>
-                    {value < 20 ? <View style={{flexDirection:'row',justifyContent:'space-between'}}><Image source={require('./../img/worst.png')} style={styles.logo} /> 
-                                <Image source={require('./../img/Notgood1.png')} style={styles.logo} />   
-                                <Image source={require('./../img/fine1.png')} style={styles.logo} />   
-                                <Image source={require('./../img/lookgood1.png')} style={styles.logo} />   
-                                <Image source={require('./../img/love1.png')} style={styles.logo} />   
+                    {value < 20 ? <View style={{flexDirection:'row',justifyContent:'space-between'}}><Image source={require('../../img/worst.png')} style={styles.logo} /> 
+                                <Image source={require('../../img/Notgood1.png')} style={styles.logo} />   
+                                <Image source={require('../../img/fine1.png')} style={styles.logo} />   
+                                <Image source={require('../../img/lookgood1.png')} style={styles.logo} />   
+                                <Image source={require('../../img/love1.png')} style={styles.logo} />   
                           </View>
                     :  null}
-                    {value >= 20 && value <40 ? <View style={{flexDirection:'row',justifyContent:'space-between'}}><Image source={require('./../img/worst2.png')} style={styles.logo} /> 
-                                <Image source={require('./../img/Notgood2.png')} style={styles.logo} />   
-                                <Image source={require('./../img/fine1.png')} style={styles.logo} />   
-                                <Image source={require('./../img/lookgood1.png')} style={styles.logo} />   
-                                <Image source={require('./../img/love1.png')} style={styles.logo} />   
+                    {value >= 20 && value <40 ? <View style={{flexDirection:'row',justifyContent:'space-between'}}><Image source={require('../../img/worst2.png')} style={styles.logo} /> 
+                                <Image source={require('../../img/Notgood2.png')} style={styles.logo} />   
+                                <Image source={require('../../img/fine1.png')} style={styles.logo} />   
+                                <Image source={require('../../img/lookgood1.png')} style={styles.logo} />   
+                                <Image source={require('../../img/love1.png')} style={styles.logo} />   
                           </View>
                     :  null}
-                    {value >= 40 && value <60 ? <View style={{flexDirection:'row',justifyContent:'space-between'}}><Image source={require('./../img/worst2.png')} style={styles.logo} /> 
-                                <Image source={require('./../img/Notgood1.png')} style={styles.logo} />   
-                                <Image source={require('./../img/fine2.png')} style={styles.logo} />   
-                                <Image source={require('./../img/lookgood1.png')} style={styles.logo} />   
-                                <Image source={require('./../img/love1.png')} style={styles.logo} />   
+                    {value >= 40 && value <60 ? <View style={{flexDirection:'row',justifyContent:'space-between'}}><Image source={require('../../img/worst2.png')} style={styles.logo} /> 
+                                <Image source={require('../../img/Notgood1.png')} style={styles.logo} />   
+                                <Image source={require('../../img/fine2.png')} style={styles.logo} />   
+                                <Image source={require('../../img/lookgood1.png')} style={styles.logo} />   
+                                <Image source={require('../../img/love1.png')} style={styles.logo} />   
                           </View>
                     :  null}
-                    {value >= 60 && value <80 ? <View style={{flexDirection:'row',justifyContent:'space-between'}}><Image source={require('./../img/worst2.png')} style={styles.logo} /> 
-                                <Image source={require('./../img/Notgood1.png')} style={styles.logo} />   
-                                <Image source={require('./../img/fine1.png')} style={styles.logo} />   
-                                <Image source={require('./../img/lookgood2.png')} style={styles.logo} />   
-                                <Image source={require('./../img/love1.png')} style={styles.logo} />   
+                    {value >= 60 && value <80 ? <View style={{flexDirection:'row',justifyContent:'space-between'}}><Image source={require('../../img/worst2.png')} style={styles.logo} /> 
+                                <Image source={require('../../img/Notgood1.png')} style={styles.logo} />   
+                                <Image source={require('../../img/fine1.png')} style={styles.logo} />   
+                                <Image source={require('../../img/lookgood2.png')} style={styles.logo} />   
+                                <Image source={require('../../img/love1.png')} style={styles.logo} />   
                           </View>
                     :  null}
-                    {value >= 80  ? <View style={{flexDirection:'row',justifyContent:'space-between',marginBottom:10,}}><Image source={require('./../img/worst2.png')} style={styles.logo} /> 
-                                <Image source={require('./../img/Notgood1.png')} style={styles.logo} />   
-                                <Image source={require('./../img/fine1.png')} style={styles.logo} />   
-                                <Image source={require('./../img/lookgood1.png')} style={styles.logo} />   
-                                <Image source={require('./../img/love2.png')} style={styles.logo} />   
+                    {value >= 80  ? <View style={{flexDirection:'row',justifyContent:'space-between',marginBottom:10,}}><Image source={require('../../img/worst2.png')} style={styles.logo} /> 
+                                <Image source={require('../../img/Notgood1.png')} style={styles.logo} />   
+                                <Image source={require('../../img/fine1.png')} style={styles.logo} />   
+                                <Image source={require('../../img/lookgood1.png')} style={styles.logo} />   
+                                <Image source={require('../../img/love2.png')} style={styles.logo} />   
                           </View>
                     :  null}
             <Slider

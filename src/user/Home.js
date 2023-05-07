@@ -9,8 +9,8 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import LottieView from "lottie-react-native";
-import CustomerRepo from "./repositories/CustomerRepo";
-import AdminRepo from "./repositories/AdminRepo";
+import CustomerRepo from "../repositories/CustomerRepo";
+import AdminRepo from "../repositories/AdminRepo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const render_calendar = (weekday, start, end) => {
   return (
@@ -78,13 +78,13 @@ export default Home = function ({ navigation }) {
 
   return (
     <ImageBackground
-      source={require("./../img/background4.jpg")}
+      source={require("../../img/background4.jpg")}
       style={styles.background}
     >
       <View style={styles.container}>
         <View style={styles.avatarContainer}>
           <LottieView
-            source={require("./../assets/avatar.json")}
+            source={require("../../assets/avatar.json")}
             autoPlay
             loop
             speed={0.5}

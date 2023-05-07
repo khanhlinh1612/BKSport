@@ -11,8 +11,8 @@ import {
 } from "react-native";
 import LottieView from "lottie-react-native"; //animation
 import Icon from "react-native-vector-icons/FontAwesome"; //icons
-import CustomerRepo from "./repositories/CustomerRepo";
-import AdminRepo from "./repositories/AdminRepo";
+import CustomerRepo from "../repositories/CustomerRepo";
+import AdminRepo from "../repositories/AdminRepo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const { width, height } = Dimensions.get("screen");
 export default EditInfor = function ({ navigation }) {

@@ -13,7 +13,7 @@ export default OTP = function ({ navigation }) {
     <SafeAreaView style={styles.container}>
       <View style={styles.lottielogo}>
         <LottieView
-          source={require("./../assets/otp.json")}
+          source={require("../../assets/otp.json")}
           autoPlay
           loop
           speed={1}

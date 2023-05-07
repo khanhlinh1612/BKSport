@@ -11,8 +11,8 @@ import {
 } from "react-native";
 import LottieView from "lottie-react-native"; //animation
 import Icon from "react-native-vector-icons/FontAwesome"; //icons
-import CustomerRepo from './repositories/CustomerRepo';
-import AdminRepo from './repositories/AdminRepo';
+import CustomerRepo from '../repositories/CustomerRepo';
+import AdminRepo from '../repositories/AdminRepo';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const { width, height } = Dimensions.get("screen");
 
@@ -51,7 +51,7 @@ export default Login = function ({ navigation }) {
       });
       await AsyncStorage.getItem("AdminID").then((val) => {
         if(val !== null) {
-          navigation.navigate("MyDrawer");
+          navigation.navigate("MyDrawer1");
         }
       });
     } catch (error) {
@@ -88,7 +88,7 @@ export default Login = function ({ navigation }) {
         flag = true;
         try {
           await AsyncStorage.setItem('AdminID', JSON.stringify(ele.id));
-          navigation.navigate("MyDrawer");
+          navigation.navigate("MyDrawer1");
           return;
         }
         catch (error) {
@@ -111,7 +111,7 @@ export default Login = function ({ navigation }) {
       </TouchableOpacity>
       <View style={styles.avatarContainer}>
         <LottieView
-          source={require("./../assets/login.json")}
+          source={require("../../assets/login.json")}
           autoPlay
           loop
           speed={1}
