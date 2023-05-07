@@ -1,10 +1,7 @@
-import React, {useState}from 'react';
+import React from 'react';
 import { StyleSheet, View, Text, Image,TouchableOpacity, Dimensions,TextInput,SafeAreaView} from 'react-native';
 import LottieView from 'lottie-react-native'; //animation
-import Icon from 'react-native-vector-icons/FontAwesome'; //icons
-
 import Modal from 'react-native-modal';
-
 const {width, height} = Dimensions.get('screen');
 class  FeedbackDetail extends React.Component {
     constructor(props){
@@ -13,7 +10,6 @@ class  FeedbackDetail extends React.Component {
             isModalVisible: false,
         };
     }
-    
   render() {
     const feedback = 
       {
@@ -21,6 +17,7 @@ class  FeedbackDetail extends React.Component {
         title: 'Quality of pitch',
         username: 'Bùi Duy',
         phone: '0123456789',
+        date: "10-04-2022",
         value: 80,
         description: "I was impressed with the overall quality of the pitch during our recent game. It was clear that the groundskeeping crew had taken great care to ensure that the surface was in excellent condition. The grass was cut to the perfect length, and there were no bare spots or uneven areas that would have affected gameplay. The ball moved smoothly and consistently throughout the game, and I felt confident in my footing as I ran and made quick turns. Thank you for maintaining such a high level of quality on the pitch, it really makes a difference in the overall experience of playing on your field.",
       };
@@ -106,6 +103,9 @@ class  FeedbackDetail extends React.Component {
                     </TouchableOpacity>
                 </View>
          </Modal>
+          <Text style= {{fontSize: 16, color: '#000', fontWeight:400, marginTop: 4, marginLeft:130,}}>
+              Date:  {feedback.date}
+          </Text>
         </SafeAreaView>
         
       );
@@ -157,27 +157,7 @@ const styles = StyleSheet.create({
     borderRadius:10,
     marginBottom:10,
    },   
-   button1: {
-    marginTop:5,
-    backgroundColor: '#20B2AA',
-    padding: 10,
-    width: 181.28,
-    height: 48,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 49,
-    gap: 10,
-  },
-  buttonText1: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight:'bold',
-    
-  },
+   
   box: {
     backgroundColor: '#fff',
     padding: 20,

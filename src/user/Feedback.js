@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Image,TouchableOpacity, Dimensions,TextInput,Sa
 import LottieView from 'lottie-react-native'; //animation
 import Icon from 'react-native-vector-icons/FontAwesome'; //icons
 import Slider from '@react-native-community/slider';
+import moment from "moment";
 const {width, height} = Dimensions.get('screen');
 export default Feedback  = function({navigation}){
     const [value,setValue] = useState(0);
@@ -18,22 +19,27 @@ export default Feedback  = function({navigation}){
         setPhone('');
         setValue(0);
     }
+    const date1 = moment();
+    const formattedDate1 = date1.format("dddd, D MMMM YYYY");
   return (
     <SafeAreaView style={styles.container}>
         <LottieView source={require('../../assets/feedback2.json')} autoPlay={true} loop speed={1}  style={styles.logo1} />
+        <View style={styles.time1}>
+        <Text style={styles.date}>{formattedDate1}</Text>
+      </View>
       <View style={styles.mainbox}>
             <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                 <View style={styles.container1}>
                     <Text style={styles.text_name}>Name</Text>
                     <View style={styles.phone}>              
-                    <TextInput placeholder="Lumine" style={{flex:1,paddingVertical:0,fontSize:13}} value={name}
+                    <TextInput placeholder="Lumine" placeholderTextColor="gray" style={{flex:1,paddingVertical:0,fontSize:13}} value={name}
                         onChangeText={(text) => setName(text)} />
                     </View>
                 </View>
                 <View style={styles.container1}>
                     <Text style={styles.text_name}>Phone Number</Text>
                     <View style={styles.phone}>              
-                    <TextInput placeholder="+ 91 00000 00000" style={{flex:1,paddingVertical:0,fontSize:13}} value={phone}
+                    <TextInput placeholder="+ 91 00000 00000" placeholderTextColor="gray" style={{flex:1,paddingVertical:0,fontSize:13}} value={phone}
                         onChangeText={(text) => setPhone(text)}/>
                     </View>
                 </View>
@@ -42,7 +48,7 @@ export default Feedback  = function({navigation}){
                 <View style={styles.container1}>
                     <Text style={styles.text_name}>Title Feedback</Text>
                     <View style={styles.phone}>              
-                    <TextInput placeholder="title" style={{flex:1,paddingVertical:0,fontSize:13}} value={title}
+                    <TextInput placeholder="title"  placeholderTextColor="gray" style={{flex:1,paddingVertical:0,fontSize:13}} value={title}
                         onChangeText={(text) => setTitle(text)} />
                     </View>
                 </View>
@@ -96,8 +102,9 @@ export default Feedback  = function({navigation}){
             <View style={styles.container1}>
                 <View style={{ justifyItems: 'center' }}>
                     <TextInput
-                        style={{ borderWidth: 1, paddingLeft:10,borderRadius: 20,height:height*0.1,width:width*0.7}}
+                        style={{ borderWidth: 1, paddingLeft:10,borderRadius: 20,height:height*0.1,width:width*0.7,}}
                         placeholder="Add your comments..."
+                        placeholderTextColor="gray"
                         value={comment}
                         onChangeText={(text) => setComment(text)}
                     />
@@ -122,8 +129,23 @@ const styles = StyleSheet.create({
   },
   logo1:{  
     width: width * 0.8,
-    height: height * 0.27,
+    height: height * 0.25,
 
+  },
+  time1: {
+    borderRadius: 30,
+    textAlign: "center",
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 250,
+    height: 30,
+    backgroundColor: "#ffe2e2",
+    fontWeight: "bold",
+    fontSize: 10,
+  },
+  date: {
+    fontWeight: "bold",
   },
   logo:{
     width: width * 0.14,
@@ -163,7 +185,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#20B2AA',
     padding: 10,
     width: 181.28,
-    height: 48,
+    height: 38,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',

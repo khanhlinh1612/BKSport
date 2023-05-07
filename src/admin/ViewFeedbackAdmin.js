@@ -18,6 +18,7 @@ export default ViewFeedback = function({navigation}) {
       title: 'Quality of pitch',
       username: 'Bùi Duy',
       phone: '0123456789',
+      date: '13-05-2023',
       value: 70,
       description: "I was impressed with the overall quality of the pitch during our recent game. It was clear that the groundskeeping crew had taken great care to ensure that the surface was in excellent condition. The grass was cut to the perfect length, and there were no bare spots or uneven areas that would have affected gameplay. The ball moved smoothly and consistently throughout the game, and I felt confident in my footing as I ran and made quick turns. Thank you for maintaining such a high level of quality on the pitch, it really makes a difference in the overall experience of playing on your field.",
     },
@@ -26,6 +27,7 @@ export default ViewFeedback = function({navigation}) {
       title: 'Lighting',
       username: 'Duy',
       phone: '0123456789',
+      date: '13-05-2023',
       value: 90,
       description: "I was impressed with the overall quality of the pitch during our recent game. It was clear that the groundskeeping crew had taken great care to ensure that the surface was in excellent condition. The grass was cut to the perfect length, and there were no bare spots or uneven areas that would have affected gameplay. The ball moved smoothly and consistently throughout the game, and I felt confident in my footing as I ran and made quick turns. Thank you for maintaining such a high level of quality on the pitch, it really makes a difference in the overall experience of playing on your field.",
     },
@@ -34,6 +36,7 @@ export default ViewFeedback = function({navigation}) {
       title: 'Cleanliness',
       username: 'Mạnh',
       phone: '0123456789',
+      date: '13-05-2023',
       value: 50,
       description: "I was impressed with the overall quality of the pitch during our recent game. It was clear that the groundskeeping crew had taken great care to ensure that the surface was in excellent condition. The grass was cut to the perfect length, and there were no bare spots or uneven areas that would have affected gameplay. The ball moved smoothly and consistently throughout the game, and I felt confident in my footing as I ran and made quick turns. Thank you for maintaining such a high level of quality on the pitch, it really makes a difference in the overall experience of playing on your field.",
     },
@@ -42,6 +45,7 @@ export default ViewFeedback = function({navigation}) {
         title: 'Accessibility',
         username: 'Hào',
         phone: '0123456789',
+        date: '13-05-2023',
         value : 100,
         description: "I was impressed with the overall quality of the pitch during our recent game. It was clear that the groundskeeping crew had taken great care to ensure that the surface was in excellent condition. The grass was cut to the perfect length, and there were no bare spots or uneven areas that would have affected gameplay. The ball moved smoothly and consistently throughout the game, and I felt confident in my footing as I ran and made quick turns. Thank you for maintaining such a high level of quality on the pitch, it really makes a difference in the overall experience of playing on your field.",
       },
@@ -50,6 +54,7 @@ export default ViewFeedback = function({navigation}) {
         title: 'Quality of equipment',
         username: 'Khánh Linh',
         phone: '0123456789',
+        date: '13-05-2023',
         value: 30,
         description: "I was impressed with the overall quality of the pitch during our recent game. It was clear that the groundskeeping crew had taken great care to ensure that the surface was in excellent condition. The grass was cut to the perfect length, and there were no bare spots or uneven areas that would have affected gameplay. The ball moved smoothly and consistently throughout the game, and I felt confident in my footing as I ran and made quick turns. Thank you for maintaining such a high level of quality on the pitch, it really makes a difference in the overall experience of playing on your field.",
       },
@@ -58,6 +63,7 @@ export default ViewFeedback = function({navigation}) {
         title: 'User interface',
         username: 'Khánh',
         phone: '0123456789',
+        date: '13-05-2023',
         value:40,
         description: "I was impressed with the overall quality of the pitch during our recent game. It was clear that the groundskeeping crew had taken great care to ensure that the surface was in excellent condition. The grass was cut to the perfect length, and there were no bare spots or uneven areas that would have affected gameplay. The ball moved smoothly and consistently throughout the game, and I felt confident in my footing as I ran and made quick turns. Thank you for maintaining such a high level of quality on the pitch, it really makes a difference in the overall experience of playing on your field.",
       },
@@ -66,6 +72,7 @@ export default ViewFeedback = function({navigation}) {
         title: 'Facilities',
         username: 'Hào',
         phone: '0123456789',
+        date: '13-05-2023',
         value:10,
         description: "I was impressed with the overall quality of the pitch during our recent game. It was clear that the groundskeeping crew had taken great care to ensure that the surface was in excellent condition. The grass was cut to the perfect length, and there were no bare spots or uneven areas that would have affected gameplay. The ball moved smoothly and consistently throughout the game, and I felt confident in my footing as I ran and made quick turns. Thank you for maintaining such a high level of quality on the pitch, it really makes a difference in the overall experience of playing on your field.",
       },
@@ -74,11 +81,21 @@ export default ViewFeedback = function({navigation}) {
 
   const renderItem = ({item}) => (
     <TouchableOpacity  onPress={() => navigation.navigate("FeedbackDetail")} style={item.id %2 == 0 ? styles.eventItem : styles.eventItem1}>
+    
       <Text style={styles.eventTitle}>{item.title}</Text>
+      
       <Text style={styles.eventusername}>{item.username}</Text>
+      
       <Text style={styles.eventusername} numberOfLines={1}>
-       <Text style={{fontWeight:500, fontSize:14}}>Description:</Text>  {item.description}
+          <Text style={{fontWeight:500, fontSize:14}}>Description:</Text>  {item.description}
       </Text>
+      <Text style= {{fontSize: 14,
+        color: '#000',
+        fontWeight:400,
+        marginTop: 4,
+        marginLeft:200,}}>{item.date}
+      </Text>
+    
     </TouchableOpacity>
   );
 
