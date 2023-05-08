@@ -90,7 +90,7 @@ export default Feedback  = function({navigation}){
                           </View>
                     :  null}
             <Slider
-                style={{ width: 200 }}
+                style={{ width: 0.9*width}}
                 minimumTrackTintColor={'#105955'}
                 minimumValue={0}
                 maximumValue={100}
@@ -102,7 +102,7 @@ export default Feedback  = function({navigation}){
             <View style={styles.container1}>
                 <View style={{ justifyItems: 'center' }}>
                     <TextInput
-                        style={{ borderWidth: 1, paddingLeft:10,borderRadius: 20,height:height*0.1,width:width*0.7,}}
+                        style={{ borderWidth: 1, paddingLeft:10,borderRadius: 20,height:height*0.1,width:width*0.9,}}
                         placeholder="Add your comments..."
                         placeholderTextColor="gray"
                         value={comment}
@@ -151,6 +151,7 @@ const styles = StyleSheet.create({
     width: width * 0.14,
     height: height * 0.06,
   },
+ 
   container1:{
     flexDirection:'column',
     marginBottom:10,

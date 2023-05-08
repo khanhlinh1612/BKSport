@@ -9,11 +9,20 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 
 export default SuggestCalendar = function ({ navigation }) {
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.containerRecommend}>
         <View style={styles.matchtype}>
           <Text style={styles.matchtypeText}>Friendly match</Text>
+        </View>
+        
+        
+        <View style={styles.calendar}>
+          <View style={styles.icon}>
+            <Icon name="tag" size={30} color="#00559A" />
+          </View>
+          <Text style={styles.text}>Schedule_2</Text>
         </View>
         <View style={styles.calendar}>
           <View style={styles.icon}>
@@ -70,23 +79,24 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     marginBottom: 20,
-    backgroundColor: "#FF8B8B9C",
+    backgroundColor: "#FFDBE7",
   },
   matchtype: {
     flex: 0.6,
     flexGrow: 0.6,
-    width: "40%",
-    backgroundColor: "#FFBD69",
+    width: "60%",
+    backgroundColor: "#FEC9C3",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     marginTop: 25,
     marginLeft: 30,
-    marginBottom: 10,
+    marginBottom: 20,
     borderRadius: 20,
     borderWidth: 2,
-    borderColor: "#FFA500",
+    borderColor: "#D2C6E6",
     borderStyle: "solid",
+    padding:5,
   },
   matchtypeText: {
     fontSize: 16,
@@ -99,20 +109,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginLeft: 20,
-    marginBottom: 10,
+    marginBottom: 15,
   },
   icon: {
     backgroundColor: "#f7f7f7",
     borderRadius: 15,
     height: 50,
-    width: 50,
+    width: 45,
     justifyContent: "center",
     alignItems: "center",
-    marginHorizontal: 10,
+    marginHorizontal: 5,
   },
   text: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: 500,
     color: "black",
   },
   fromto: {
@@ -125,7 +135,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   button: {
-    backgroundColor: "#FF621F",
+    backgroundColor: '#20B2AA',
     width: 300,
     height: 50,
     justifyContent: "center",
@@ -134,7 +144,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   buttonText1: {
-    color: "black",
+    color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
   },

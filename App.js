@@ -46,7 +46,7 @@ async function openDatabase() {
   }
 
   else {
-    return SQLite.openDatabase("BKSPORT.db");
+   return SQLite.openDatabase("BKSPORT.db");
   }
 
   await FileSystem.downloadAsync(
