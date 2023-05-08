@@ -64,7 +64,6 @@ function MyDrawer() {
       <Drawer.Screen name="Information" component={Information} />
       <Drawer.Screen name="Calendar Management" component={Calendar} />
       <Drawer.Screen name="Weather" component={Weather} />     
-      <Drawer.Screen name="Feedback" component={Feedback} /> 
       <Drawer.Screen name="Suggestion" component={SuggestCalendar} />
       <Drawer.Screen name="OTP" component={OTP} />
     </Drawer.Navigator>
@@ -127,6 +126,7 @@ export default function App() {
           component={Register}
           options={{ headerShown: false }}
         />
+        <Stack.Screen name="Feedback" component={Feedback} /> 
         <Stack.Screen name="Add A Task" component={Addtask} />
         <Stack.Screen name="Edit Infor" component={EditInfor} />
         <Stack.Screen name="Customer's Detail" component={CustomerDetail} />

@@ -71,7 +71,7 @@ export default Calendar = function ({ route, navigation }) {
   };
 
   const renderItem = ({ item }) => (
-    <View style={styles.eventItem}>
+    <TouchableOpacity onPress={() => navigation.navigate('Feedback')} style={styles.eventItem}>
       <Text style={styles.eventTitle}>{item.name}</Text>
       <Text style={styles.eventDescription}>{item.category}</Text>
       <Text style={styles.eventTime}>{`Date: ${item.date_time}`}</Text>
@@ -79,7 +79,7 @@ export default Calendar = function ({ route, navigation }) {
       <Text style={styles.eventTime}>
         {`Reserved time: ${item.duration} minutes`}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
