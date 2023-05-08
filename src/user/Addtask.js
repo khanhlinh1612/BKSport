@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";import {
+import React, { useState, useEffect } from "react";
+import {
   StyleSheet,
   View,
   Text,
@@ -17,7 +18,7 @@ import moment from "moment";
 import { Directions } from "react-native-gesture-handler";
 const { width, height } = Dimensions.get("screen");
 
-export default Addtask = function ({ navigation }) {
+export default Addtask = function ({ route, navigation }) {
   const data = [
     { id: 1, label: "Round 1" },
     { id: 2, label: "Group Stage" },
@@ -25,6 +26,8 @@ export default Addtask = function ({ navigation }) {
     { id: 4, label: "Friendly Match" },
     { id: 5, label: "Final Match" },
   ];
+
+  const sportSchedule = route.params.sched;
 
   const [selectedId, setSelectedId] = useState(null); // Trạng thái của button đang được chọn
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);
@@ -104,28 +107,53 @@ export default Addtask = function ({ navigation }) {
     setTimePickerVisible2(false);
   };
 
+  const convertTimeToNumber = (time) => {
+    var timeArr = time.split(":");
+    return Number(timeArr[0]) * 60 + Number(timeArr[1]);
+  };
+
+  const checkOverlapSched = (date, stime, etime) => {
+    var flag = false;
+    sportSchedule.map((item) => {
+      if (item.date_time === date) {
+        var reserved_start_time = convertTimeToNumber(stime);
+        var reserved_end_time = convertTimeToNumber(etime);
+        var start_time = convertTimeToNumber(item.start_time);
+        var end_time = start_time + Number(item.duration);
+        if (
+          (reserved_end_time > start_time && reserved_end_time <= end_time) ||
+          (reserved_start_time >= start_time && reserved_start_time < end_time) ||
+          (reserved_start_time >= start_time && reserved_end_time <= end_time)
+        ) {
+          flag = true;
+        }
+      }
+    });
+    return flag;
+  };
+
   const handleAddTask = async () => {
     var category = selectedId;
     var date = selectedDate;
 
-    if(category === null) {
-      alert("Please choose Category!")
+    if (category === null) {
+      alert("Please choose Category!");
       return;
     }
 
     data.map((item) => {
-      if(item.id === selectedId) {
+      if (item.id === selectedId) {
         category = item.label;
       }
     });
 
-    if(topic.length === 0) {
-      alert("Please enter Topic / Name!")
+    if (topic.length === 0) {
+      alert("Please enter Topic / Name!");
       return;
     }
 
-    if(topic.length > 20) {
-      alert("Topic / Name too long!")
+    if (topic.length > 20) {
+      alert("Topic / Name too long!");
       return;
     }
 
@@ -133,23 +161,22 @@ export default Addtask = function ({ navigation }) {
     date = date.slice(1, -1);
     date = date.substring(0, 10);
     const dateArray = date.split("-");
-    date = dateArray[2] + '-' + dateArray[1] + '-' + dateArray[0];
+    date = dateArray[2] + "-" + dateArray[1] + "-" + dateArray[0];
 
     start_time = JSON.stringify(selectedTime);
     start_time = start_time.slice(1, -1);
     start_hour = Number(start_time.substring(11, 13));
-    if(start_hour > 13 && start_hour < 22 ) {
-      alert("The pitch don't work during 09PM to 05AM!")
+    if (start_hour > 13 && start_hour < 22) {
+      alert("The pitch doesn't work during 09PM to 05AM!");
       return;
     }
     start_hour = start_hour - 17;
-    if(start_hour < 0) {
+    if (start_hour < 0) {
       start_hour += 24;
     }
-    if(start_hour < 10) {
+    if (start_hour < 10) {
       start_hour = "0" + start_hour.toString();
-    }
-    else {
+    } else {
       start_hour = start_hour.toString();
     }
     start_time = start_hour + start_time.substring(13, 19);
@@ -158,56 +185,68 @@ export default Addtask = function ({ navigation }) {
     end_time = end_time.slice(1, -1);
     end_hour = Number(end_time.substring(11, 13));
     end_hour = end_hour - 17;
-    if(end_hour < 0) {
+    if (end_hour < 0) {
       end_hour += 24;
     }
-    if(end_hour < 10) {
+    if (end_hour < 10) {
       end_hour = "0" + end_hour.toString();
-    }
-    else {
+    } else {
       end_hour = end_hour.toString();
     }
     end_time = end_hour + end_time.substring(13, 19);
-    
+
     start_times = start_time.split(":");
     end_times = end_time.split(":");
-    
+
     var start_moment = Number(start_times[0]);
     var end_moment = Number(end_times[0]);
+
     var duration = end_moment - start_moment;
-    if(duration < 0 || duration > 1) {
+    if (duration < 0 || duration > 1) {
       alert("Pitch reserved time is from 45 to 60 mins!");
       return;
     }
-    
+
     start_moment = Number(start_times[1]);
     end_moment = Number(end_times[1]);
     let minute_value = end_moment - start_moment;
-    if(duration === 0) {
-      if(minute_value < 45) {
+    if (duration === 0) {
+      if (minute_value < 45) {
         alert("Pitch reserved time is from 45 to 60 mins!");
-        return; 
+        return;
       }
     }
-    if(duration === 1) {
+    if (duration === 1) {
       minute_value = end_moment + 60 - start_moment;
-      if( minute_value < 45 || minute_value > 60) {
+      if (minute_value < 45 || minute_value > 60) {
         alert("Pitch reserved time is from 45 to 60 mins!");
-        return; 
+        return;
       }
     }
 
-    await SportSchedRepo.craeteSportSched(topic, category, date, start_time, customerID, minute_value)
+    if (checkOverlapSched(date, start_time, end_time)) {
+      alert("Pitch was reserved during this time!");
+      return;
+    }
+
+    await SportSchedRepo.createSportSched(
+      topic,
+      category,
+      date,
+      start_time,
+      customerID,
+      minute_value
+    )
       .then((result) => {
-        alert("Add schedule successfully!")
+        alert("Add schedule successfully!");
         console.log(result);
       })
       .catch((error) => {
-        console.error('Error creating schedule:', error);
+        console.error("Error creating schedule:", error);
       });
 
-    navigation.navigate("Calendar Management", {render: true});
-  }
+    navigation.navigate("Calendar Management", { render: true });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -238,8 +277,8 @@ export default Addtask = function ({ navigation }) {
             fontWeight: "500",
           }}
           placeholderTextColor="#666666"
-          onChangeText={newText => setTopic(newText)}
-          />
+          onChangeText={(newText) => setTopic(newText)}
+        />
       </View>
 
       <View style={styles.select}>
@@ -258,8 +297,11 @@ export default Addtask = function ({ navigation }) {
             <DateTimePickerModal
               isVisible={isDatePickerVisible}
               mode="date"
-              onConfirm={handleDateConfirm}
-              onCancel={handleDateCancel}
+              onConfirm={(date) => {
+                setSelectedDate(moment(date).format("YYYY-MM-DD"));
+                setDatePickerVisible(false);
+              }}
+              onCancel={() => setDatePickerVisible(false)}
             />
           </View>
         </View>

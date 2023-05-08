@@ -12,7 +12,6 @@ import {
 import LottieView from "lottie-react-native"; //animation
 import Icon from "react-native-vector-icons/FontAwesome"; //icons
 import CustomerRepo from "../repositories/CustomerRepo";
-import AdminRepo from "../repositories/AdminRepo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const { width, height } = Dimensions.get("screen");
 export default EditInfor = function ({ navigation }) {
@@ -47,22 +46,22 @@ export default EditInfor = function ({ navigation }) {
             });
         }
       });
-      AsyncStorage.getItem("AdminID").then((val) => {
-        if (val) {
-          AdminRepo.getAdminByID(val)
-            .then((result) => {
-              setUsername(result.name);
-              setPhone(result.phone_number);
-              setEmail(result.email);
-              setPassword(result.password);
-              setConfirmPassword(result.password);
-              setAdminId(result.id);
-            })
-            .catch((error) => {
-              console.error("Error fetching admin:", error);
-            });
-        }
-      });
+      // AsyncStorage.getItem("AdminID").then((val) => {
+      //   if (val) {
+      //     AdminRepo.getAdminByID(val)
+      //       .then((result) => {
+      //         setUsername(result.name);
+      //         setPhone(result.phone_number);
+      //         setEmail(result.email);
+      //         setPassword(result.password);
+      //         setConfirmPassword(result.password);
+      //         setAdminId(result.id);
+      //       })
+      //       .catch((error) => {
+      //         console.error("Error fetching admin:", error);
+      //       });
+      //   }
+      // });
     } catch (error) {
       console.log(error);
     }
@@ -124,15 +123,15 @@ export default EditInfor = function ({ navigation }) {
         });
     }
 
-    if (adminId !== "") {
-      AdminRepo.updateAdmin(username, phone, password, email, adminId)
-        .then((result) => {
-          console.log(result);
-        })
-        .catch((error) => {
-          console.error("Error updating admin:", error);
-        });
-    }
+    // if (adminId !== "") {
+    //   AdminRepo.updateAdmin(username, phone, password, email, adminId)
+    //     .then((result) => {
+    //       console.log(result);
+    //     })
+    //     .catch((error) => {
+    //       console.error("Error updating admin:", error);
+    //     });
+    // }
 
     alert("Update successfully!");
     navigation.navigate("Information", {render: true});

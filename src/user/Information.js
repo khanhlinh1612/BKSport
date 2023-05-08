@@ -8,7 +8,6 @@ import {
   ImageBackground,
 } from "react-native";
 import CustomerRepo from "../repositories/CustomerRepo";
-import AdminRepo from "../repositories/AdminRepo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/FontAwesome";
 import LottieView from "lottie-react-native";
@@ -55,17 +54,17 @@ export default Information = function ({ route, navigation }) {
             });
         }
       });
-      AsyncStorage.getItem("AdminID").then((val) => {
-        if (val) {
-          AdminRepo.getAdminByID(val)
-            .then((result) => {
-              setInfo(result);
-            })
-            .catch((error) => {
-              console.error("Error fetching admin:", error);
-            });
-        }
-      });
+      // AsyncStorage.getItem("AdminID").then((val) => {
+      //   if (val) {
+      //     AdminRepo.getAdminByID(val)
+      //       .then((result) => {
+      //         setInfo(result);
+      //       })
+      //       .catch((error) => {
+      //         console.error("Error fetching admin:", error);
+      //       });
+      //   }
+      // });
     } catch (error) {
       console.log(error);
     }

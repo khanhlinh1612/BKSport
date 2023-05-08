@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";import {
+import React, { useState, useEffect } from "react";
+import {
   StyleSheet,
   View,
   Text,
@@ -6,12 +7,12 @@ import React, { useState, useEffect } from "react";import {
   Dimensions,
   SafeAreaView,
   FlatList,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import CalendarStrip from 'react-native-calendar-strip';
+} from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
+import CalendarStrip from "react-native-calendar-strip";
 import SportSchedRepo from "../repositories/SportSchedRepo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-const {width, height} = Dimensions.get('screen');
+const { width, height } = Dimensions.get("screen");
 
 export default Calendar = function ({ route, navigation }) {
   const [sched, setSched] = useState([]);
@@ -25,12 +26,23 @@ export default Calendar = function ({ route, navigation }) {
     getData();
   }, [route.params]);
 
+  const handleSchedResult = (result) => {
+    var list = [];
+    result.map((item) => {
+      if(item.admin_id === null) {
+        list.push(item);
+      }
+    });
+    return list;
+  };
+
   const getData = () => {
     try {
       AsyncStorage.getItem("CustomerID").then((val) => {
         if (val) {
           SportSchedRepo.getSportSchedByUserID(val)
             .then((result) => {
+              result = handleSchedResult(result);
               setSched(result);
               setUptSched(result);
             })
@@ -71,7 +83,10 @@ export default Calendar = function ({ route, navigation }) {
   };
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('Feedback')} style={styles.eventItem}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("Feedback", { id: item.id })}
+      style={styles.eventItem}
+    >
       <Text style={styles.eventTitle}>{item.name}</Text>
       <Text style={styles.eventDescription}>{item.category}</Text>
       <Text style={styles.eventTime}>{`Date: ${item.date_time}`}</Text>
@@ -103,7 +118,7 @@ export default Calendar = function ({ route, navigation }) {
       </View>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate("Add A Task")}
+        onPress={() => navigation.navigate("Add A Task", { sched: sched })}
         style={styles.button1}
       >
         <Icon name="plus" size={16} color="#fff" style={styles.icon} />
@@ -123,80 +138,79 @@ export default Calendar = function ({ route, navigation }) {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'stretch',
-        backgroundColor: '#f5f5f5',
-        padding: 5,
-    },
-    calendarContainer: {
-        flex: 3, 
-        justifyContent: 'flex-start', // Căn giữa theo chiều dọc
-        paddingTop: 0, // Khoảng cách giữa lịch và nút "Add Task"
-        paddingBottom: 0, // Khoảng cách giữa lịch và nút "Add Task"
-    },
-    button1: {
-        marginTop:5,
-        backgroundColor: '#49B583',
-        padding: 10,
-        width: 138,
-        height: 46,
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 8,
-        paddingVertical: 10,
-        paddingHorizontal: 0,
-        gap: 10,
-        position: 'absolute',
-        marginBottom: 10,
-        top: 110,
-        right: 10,
-    },
-    buttonText1: {
-        color: '#fff',
-        fontSize: 16,
-        fontWeight:'bold',
-    },
-    icon: {
-        marginRight: 3, 
-    },
-    calendar: {
-        height: 100, 
-        paddingTop: 20, 
-        paddingBottom: 10, 
-    },
-    eventListContainer: {
-        flex: 9,
-        marginTop: 20,
-        paddingHorizontal: 10,
-    },
-    eventList: {
-        // paddingTop: 10,
-        paddingBottom: 20,
-    },
-    eventItem: {
-        backgroundColor: '#fff',
-        borderRadius: 8,
-        padding: 16,
-        marginVertical: 8,
-        marginHorizontal: 16,
-        elevation: 2,
-    },
-    eventTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#000',
-    },
-    eventDescription: {
-        fontSize: 14,
-        color: '#000',
-    },
-    eventTime: {
-        fontSize: 14,
-        color: '#999',
-        marginTop: 4,
-    },
+  container: {
+    flex: 1,
+    alignItems: "stretch",
+    backgroundColor: "#f5f5f5",
+    padding: 5,
+  },
+  calendarContainer: {
+    flex: 3,
+    justifyContent: "flex-start", // Căn giữa theo chiều dọc
+    paddingTop: 0, // Khoảng cách giữa lịch và nút "Add Task"
+    paddingBottom: 0, // Khoảng cách giữa lịch và nút "Add Task"
+  },
+  button1: {
+    marginTop: 5,
+    backgroundColor: "#49B583",
+    padding: 10,
+    width: 138,
+    height: 46,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 0,
+    gap: 10,
+    position: "absolute",
+    marginBottom: 10,
+    top: 110,
+    right: 10,
+  },
+  buttonText1: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  icon: {
+    marginRight: 3,
+  },
+  calendar: {
+    height: 100,
+    paddingTop: 20,
+    paddingBottom: 10,
+  },
+  eventListContainer: {
+    flex: 9,
+    marginTop: 20,
+    paddingHorizontal: 10,
+  },
+  eventList: {
+    // paddingTop: 10,
+    paddingBottom: 20,
+  },
+  eventItem: {
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    padding: 16,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    elevation: 2,
+  },
+  eventTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#000",
+  },
+  eventDescription: {
+    fontSize: 14,
+    color: "#000",
+  },
+  eventTime: {
+    fontSize: 14,
+    color: "#999",
+    marginTop: 4,
+  },
 });
-

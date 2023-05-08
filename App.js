@@ -70,7 +70,6 @@ function MyDrawer() {
   );
 }
 
-
 function MyDrawer1() {
   return (
     <Drawer1.Navigator>
@@ -83,11 +82,6 @@ function MyDrawer1() {
     </Drawer1.Navigator>
   );
 }
-
-
-
-
-
 
 export default function App() {
   const [db, setDb] = useState(null);

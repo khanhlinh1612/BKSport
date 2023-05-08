@@ -135,8 +135,11 @@ export default AddCalendar = function ({ navigation }) {
             <DateTimePickerModal
               isVisible={isDatePickerVisible}
               mode="date"
-              onConfirm={handleDateConfirm}
-              onCancel={handleDateCancel}
+              onConfirm={(date) => {
+                setSelectedDate(moment(date).format("YYYY-MM-DD"));
+                setDatePickerVisible(false);
+              }}
+              onCancel={() => setDatePickerVisible(false)}
             />
           </View>
         </View>
