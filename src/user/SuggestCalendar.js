@@ -97,8 +97,8 @@ export default SuggestCalendar = function ({ navigation }) {
 
   const RenderEmptySched = () => {
     return(
-      <View style={styles.matchtype}>
-        <Text style={styles.matchtypeText}>Great, all matches are proceeding as normal and no schedules have been proposed.</Text>
+      <View style={styles.matchtype1}>
+        <Text style={styles.matchtypeText1}>Great, all matches are proceeding as normal and no schedules have been proposed.</Text>
       </View>
     )
   }
@@ -235,6 +235,18 @@ const styles = StyleSheet.create({
     marginRight: 20,
     marginBottom: 20,
     backgroundColor: "#FFDBE7",
+  },
+  matchtype1:{
+    flex: 1,
+    alignContent: "center",
+    justifyContent: "center",
+    alignItems: "center",
+  }
+  ,
+  matchtypeText1:{
+    fontSize:20,
+    textAlign:'center',
+    fontWeight:600,
   },
   matchtype: {
     flex: 0.6,

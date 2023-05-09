@@ -149,6 +149,17 @@ const styles = StyleSheet.create({
   lottielogo: {
     flex: 4,
   },
+  matchtype:{
+    flex: 1,
+    alignContent: "center",
+    justifyContent: "center",
+    alignItems: "center",
+  }
+  ,
+  matchtypeText:{
+    fontSize:20,
+    fontWeight:600,
+  },
   logo: {
     width: 400,
     height: 400,
