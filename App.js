@@ -10,7 +10,7 @@ import Addtask from "./src/user/Addtask";
 import EditInfor from "./src/user/EditInfor";
 import Feedback from "./src/user/Feedback";
 import Information from "./src/user/Information";
-import ControlPage from "./src/admin/lightcontrol";
+import ControlPage from "./src/admin/LightControl";
 import HomeAdmin from "./src/admin/HomeAdmin";
 import SuggestCalendar from "./src/user/SuggestCalendar";
 import OTP from "./src/user/Otp";
@@ -31,7 +31,7 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
-const Drawer1 = createDrawerNavigator(); 
+const Drawer1 = createDrawerNavigator();
 async function openDatabase() {
   const database = SQLite.openDatabase("BKSPORT.db");
   database._db.close();
@@ -43,10 +43,8 @@ async function openDatabase() {
     await FileSystem.makeDirectoryAsync(
       FileSystem.documentDirectory + "SQLite"
     );
-  }
-
-  else {
-   return SQLite.openDatabase("BKSPORT.db");
+  } else {
+    return SQLite.openDatabase("BKSPORT.db");
   }
 
   await FileSystem.downloadAsync(
@@ -60,12 +58,36 @@ async function openDatabase() {
 function MyDrawer() {
   return (
     <Drawer.Navigator>
-      <Drawer.Screen name="Home" component={Home} />
-      <Drawer.Screen name="Information" component={Information} />
-      <Drawer.Screen name="Calendar Management" component={Calendar} />
-      <Drawer.Screen name="Weather" component={Weather} />     
-      <Drawer.Screen name="Suggestion" component={SuggestCalendar} />
-      <Drawer.Screen name="OTP" component={OTP} />
+      <Drawer.Screen
+        name="Home"
+        component={Home}
+        options={{ unmountOnBlur: true }}
+      />
+      <Drawer.Screen
+        name="Information"
+        component={Information}
+        options={{ unmountOnBlur: true }}
+      />
+      <Drawer.Screen
+        name="Calendar Management"
+        component={Calendar}
+        options={{ unmountOnBlur: true }}
+      />
+      <Drawer.Screen
+        name="Weather"
+        component={Weather}
+        options={{ unmountOnBlur: true }}
+      />
+      <Drawer.Screen
+        name="Suggestion"
+        component={SuggestCalendar}
+        options={{ unmountOnBlur: true }}
+      />
+      <Drawer.Screen
+        name="OTP"
+        component={OTP}
+        options={{ unmountOnBlur: true }}
+      />
     </Drawer.Navigator>
   );
 }
@@ -73,12 +95,36 @@ function MyDrawer() {
 function MyDrawer1() {
   return (
     <Drawer1.Navigator>
-      <Drawer1.Screen name="HomeAdmin" component={HomeAdmin} />
-      <Drawer1.Screen name="Weather" component={Weather} />
-      <Drawer1.Screen name="Light Control" component={ControlPage} />
-      <Drawer1.Screen name="Customer Management" component={ManageCustomer} />
-      <Drawer1.Screen name="Watering System" component={WateringSystem} />
-      <Drawer1.Screen name="ViewFeedback" component={ViewFeedbackAdmin} />
+      <Drawer1.Screen
+        name="HomeAdmin"
+        component={HomeAdmin}
+        options={{ unmountOnBlur: true }}
+      />
+      <Drawer1.Screen
+        name="Weather"
+        component={Weather}
+        options={{ unmountOnBlur: true }}
+      />
+      <Drawer1.Screen
+        name="Light Control"
+        component={ControlPage}
+        options={{ unmountOnBlur: true }}
+      />
+      <Drawer1.Screen
+        name="Customer Management"
+        component={ManageCustomer}
+        options={{ unmountOnBlur: true }}
+      />
+      <Drawer1.Screen
+        name="Watering System"
+        component={WateringSystem}
+        options={{ unmountOnBlur: true }}
+      />
+      <Drawer1.Screen
+        name="ViewFeedback"
+        component={ViewFeedbackAdmin}
+        options={{ unmountOnBlur: true }}
+      />
     </Drawer1.Navigator>
   );
 }
@@ -120,7 +166,7 @@ export default function App() {
           component={Register}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="Feedback" component={Feedback} /> 
+        <Stack.Screen name="Feedback" component={Feedback} />
         <Stack.Screen name="Add A Task" component={Addtask} />
         <Stack.Screen name="Edit Infor" component={EditInfor} />
         <Stack.Screen name="Customer's Detail" component={CustomerDetail} />
