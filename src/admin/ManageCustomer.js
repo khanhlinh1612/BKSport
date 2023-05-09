@@ -7,10 +7,11 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  Dimensions,
   Alert
 } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+const { width, height } = Dimensions.get("screen");
 export default function ManageCustomer({ navigation }) {
   const alert_delete = () => {
     Alert.alert(
@@ -85,7 +86,7 @@ export default function ManageCustomer({ navigation }) {
       <View style={styles.info}>
         <View style={{flexDirection:'row'}}>
             <Text style={styles.name}>{item.name}</Text>
-              <TouchableOpacity onPress={alert_delete} style={{flexDirection:'column' , alignContent:'flex-end', marginLeft:180}}>
+              <TouchableOpacity onPress={alert_delete} style={{flexDirection:'column' , alignContent:'flex-end', marginLeft:0.48*width}}>
               <Icon name="close" size={25}  color="#900" />
               </TouchableOpacity>
             
