@@ -53,7 +53,7 @@ export default Home = function ({ navigation }) {
     var reserved_time = start_time.split(":");
 
     hour = hour - 17;
-    if(hour < 0) {
+    if (hour < 0) {
       hour += 24;
     }
 
@@ -112,7 +112,7 @@ export default Home = function ({ navigation }) {
         );
       }
     });
-    if(list.length > 6) {
+    if (list.length > 6) {
       list = list.slice(0, 5);
     }
     return list;
@@ -127,7 +127,7 @@ export default Home = function ({ navigation }) {
   const handleSchedResult = (result) => {
     var list = [];
     result.map((item) => {
-      if(item.admin_id === null) {
+      if (item.admin_id === null) {
         list.push(item);
       }
     });
