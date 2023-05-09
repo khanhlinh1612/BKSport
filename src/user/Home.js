@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     marginRight: 80,
     color: "#FF8E4F",
     fontWeight: "bold",
-    width: 90,
+    width: 100,
   },
   text_list1: {
     color: "#FF8E4F",

@@ -121,7 +121,7 @@ export default Feedback = function ({ route, navigation }) {
 
         <View style={styles.container1}>
           <Text style={styles.text_name}>Title Feedback</Text>
-          <View style={styles.phone}>
+          <View style={styles.phone1}>
             <TextInput
               placeholder="title"
               placeholderTextColor="gray"
@@ -358,6 +358,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     width: width * 0.4,
+    backgroundColor: "#FFF9F9",
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  phone1: {
+    flexDirection: "row",
+    borderColor: "#deacac",
+    borderWidth: 1,
+    padding: 10,
+    width: width * 0.945,
     backgroundColor: "#FFF9F9",
     borderRadius: 10,
     marginBottom: 10,
