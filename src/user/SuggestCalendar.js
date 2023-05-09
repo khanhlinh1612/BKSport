@@ -23,9 +23,6 @@ export default SuggestCalendar = function ({ navigation }) {
         list.push(item);
       }
     });
-    if (list.length > 0) {
-      return [list[0]];
-    }
     return list;
   };
 
@@ -46,6 +43,56 @@ export default SuggestCalendar = function ({ navigation }) {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleCheckTime = (date_time, start_time) => {
+    var time = new Date();
+    time = JSON.stringify(time);
+    time = time.slice(1, -1);
+    var year = Number(time.substring(0, 4));
+    var month = Number(time.substring(5, 7));
+    var date = Number(time.substring(8, 10));
+    var hour = Number(time.substring(11, 13));
+    var minute = Number(time.substring(14, 16));
+    var reserved_date = date_time.split("-");
+    var reserved_time = start_time.split(":");
+
+    hour = hour - 17;
+    if (hour < 0) {
+      hour += 24;
+    }
+
+    if (year > Number(reserved_date[2])) {
+      return false;
+    }
+    if (year === Number(reserved_date[2]) && month > Number(reserved_date[1])) {
+      return false;
+    }
+    if (
+      year === Number(reserved_date[2]) &&
+      month === Number(reserved_date[1]) &&
+      date > Number(reserved_date[0])
+    ) {
+      return false;
+    }
+    if (
+      year === Number(reserved_date[2]) &&
+      month === Number(reserved_date[1]) &&
+      date === Number(reserved_date[0]) &&
+      hour > Number(reserved_time[0])
+    ) {
+      return false;
+    }
+    if (
+      year === Number(reserved_date[2]) &&
+      month === Number(reserved_date[1]) &&
+      date === Number(reserved_date[0]) &&
+      hour === Number(reserved_time[0]) &&
+      minute > Number(reserved_time[1])
+    ) {
+      return false;
+    }
+    return true;
   };
 
   const RenderEmptySched = () => {
@@ -97,63 +144,79 @@ export default SuggestCalendar = function ({ navigation }) {
     navigation.navigate("Home");
   }
 
+  const RenderNotEmptySched = () => {
+    var list = [];
+    sched.map((item) => {
+      let flag = handleCheckTime(item.date_time, item.start_time);
+      if (flag) {
+        list.push(
+          <SafeAreaView style={styles.container}>
+            <View style={styles.containerRecommend}>
+              <View style={styles.matchtype}>
+                <Text style={styles.matchtypeText}>{item.category}</Text>
+              </View>
+
+              <View style={styles.calendar}>
+                <View style={styles.icon}>
+                  <Icon name="tag" size={30} color="#00559A" />
+                </View>
+                <Text style={styles.text}>{item.name}</Text>
+              </View>
+              <View style={styles.calendar}>
+                <View style={styles.icon}>
+                  <Icon name="calendar" size={30} color="#00559A" />
+                </View>
+                <Text style={styles.text}>{item.date_time}</Text>
+              </View>
+              <View style={styles.fromto}>
+                <Text style={styles.text}>From</Text>
+              </View>
+              <View style={styles.calendar}>
+                <View style={styles.icon}>
+                  <Icon name="clock-o" size={30} color="orange" />
+                </View>
+                <Text style={styles.text}>{item.start_time}</Text>
+              </View>
+              <View style={styles.fromto}>
+                <Text style={styles.text}>To</Text>
+              </View>
+              <View style={styles.calendar}>
+                <View style={styles.icon}>
+                  <Icon name="clock-o" size={30} color="orange" />
+                </View>
+                <Text style={styles.text}>{handleConvertTime(item.start_time, item.duration)}</Text>
+              </View>
+            </View>
+            <View style={styles.buttoncontainer}>
+              <TouchableOpacity
+                onPress={() => handleAcceptBtn(item.id)}
+                style={styles.button}
+              >
+                <Text style={styles.buttonText1}>Accept</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => handleDenyBtn(item.id)}
+                style={styles.button}
+              >
+                <Text style={styles.buttonText1}>Deny</Text>
+              </TouchableOpacity>
+            </View>
+          </SafeAreaView>
+        );
+      }
+    });
+    if(list.length !== 0) {
+      return list[0];
+    }
+    return <RenderEmptySched />;
+  }
+
   return (
     <React.Fragment>
       {sched.length === 0 ? (
         <RenderEmptySched />
       ) : (
-        <SafeAreaView style={styles.container}>
-          <View style={styles.containerRecommend}>
-            <View style={styles.matchtype}>
-              <Text style={styles.matchtypeText}>{sched[0].category}</Text>
-            </View>
-
-            <View style={styles.calendar}>
-              <View style={styles.icon}>
-                <Icon name="tag" size={30} color="#00559A" />
-              </View>
-              <Text style={styles.text}>{sched[0].name}</Text>
-            </View>
-            <View style={styles.calendar}>
-              <View style={styles.icon}>
-                <Icon name="calendar" size={30} color="#00559A" />
-              </View>
-              <Text style={styles.text}>{sched[0].date_time}</Text>
-            </View>
-            <View style={styles.fromto}>
-              <Text style={styles.text}>From</Text>
-            </View>
-            <View style={styles.calendar}>
-              <View style={styles.icon}>
-                <Icon name="clock-o" size={30} color="orange" />
-              </View>
-              <Text style={styles.text}>{sched[0].start_time}</Text>
-            </View>
-            <View style={styles.fromto}>
-              <Text style={styles.text}>To</Text>
-            </View>
-            <View style={styles.calendar}>
-              <View style={styles.icon}>
-                <Icon name="clock-o" size={30} color="orange" />
-              </View>
-              <Text style={styles.text}>{handleConvertTime(sched[0].start_time, sched[0].duration)}</Text>
-            </View>
-          </View>
-          <View style={styles.buttoncontainer}>
-            <TouchableOpacity
-              onPress={() => handleAcceptBtn(sched[0].id)}
-              style={styles.button}
-            >
-              <Text style={styles.buttonText1}>Accept</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => handleDenyBtn(sched[0].id)}
-              style={styles.button}
-            >
-              <Text style={styles.buttonText1}>Deny</Text>
-            </TouchableOpacity>
-          </View>
-        </SafeAreaView>
+        <RenderNotEmptySched />
       )}
     </React.Fragment>
   );
