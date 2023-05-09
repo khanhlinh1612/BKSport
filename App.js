@@ -43,7 +43,9 @@ async function openDatabase() {
     await FileSystem.makeDirectoryAsync(
       FileSystem.documentDirectory + "SQLite"
     );
-  } else {
+  } 
+  
+  else {
     return SQLite.openDatabase("BKSPORT.db");
   }
 
