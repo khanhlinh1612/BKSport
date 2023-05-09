@@ -9,6 +9,16 @@ import {
 import LottieView from "lottie-react-native";
 
 export default OTP = function ({ navigation }) {
+
+  const RenderEmptyOTP = () => {
+    return(
+      <View style={styles.matchtype}>
+        <Text style={styles.matchtypeText}>
+        Currently there is no OTP code</Text>
+      </View>
+    )
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.lottielogo}>
