@@ -7,11 +7,15 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  Dimensions,
+  Alert
   Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import CustomerRepo from "../repositories/CustomerRepo";
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+const { width, height } = Dimensions.get("screen");
 export default function ManageCustomer({ navigation }) {
   const [customer, setCustomer] = useState([]);
 
@@ -62,18 +66,12 @@ export default function ManageCustomer({ navigation }) {
     >
       <Image source={{ uri: item.avatar }} style={styles.avatar} />
       <View style={styles.info}>
-        <View style={{ flexDirection: "row" }}>
-          <Text style={styles.name}>{item.name}</Text>
-          <TouchableOpacity
-            onPress={() => alert_delete(item.id)}
-            style={{
-              flexDirection: "column",
-              alignContent: "flex-end",
-              marginLeft: 180,
-            }}
-          >
-            <Icon name="close" size={25} color="#900" />
-          </TouchableOpacity>
+        <View style={{flexDirection:'row'}}>
+            <Text style={styles.name}>{item.name}</Text>
+              <TouchableOpacity onPress={alert_delete} style={{flexDirection:'column' , alignContent:'flex-end', marginLeft:0.48*width}}>
+              <Icon name="close" size={25}  color="#900" />
+              </TouchableOpacity>
+            
         </View>
 
         <View style={styles.nextMatch}>
