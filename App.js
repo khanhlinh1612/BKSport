@@ -136,7 +136,7 @@ function MyDrawer1() {
 
 export default function App() {
 
-  // HandleReq();
+  HandleReq();
 
   return (
     <NavigationContainer>
