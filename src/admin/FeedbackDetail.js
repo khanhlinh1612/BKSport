@@ -9,12 +9,9 @@ import {
   TextInput,
   SafeAreaView,
 } from "react-native";
-import moment from "moment";
 import LottieView from "lottie-react-native"; //animation
 import Modal from "react-native-modal";
 const { width, height } = Dimensions.get("screen");
-const date1 = moment();
-const formattedDate1 = date1.format("DD-MM-YYYY");
 class FeedbackDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -43,7 +40,7 @@ class FeedbackDetail extends React.Component {
           style={styles.logo1}
         />
         <View style={styles.time1}>
-        <Text style={styles.date}>{formattedDate1}</Text>
+        <Text style={styles.date}>{sched.feedback_date_time}</Text>
         </View>
         <View style={styles.mainbox}>
           <View
@@ -249,17 +246,6 @@ class FeedbackDetail extends React.Component {
             </TouchableOpacity>
           </View>
         </Modal>
-        <Text
-          style={{
-            fontSize: 16,
-            color: "#000",
-            fontWeight: 400,
-            marginTop: 4,
-            marginLeft: 130,
-          }}
-        >
-          Date: {sched.feedback_date_time}
-        </Text>
       </SafeAreaView>
     );
   }

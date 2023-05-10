@@ -22,7 +22,6 @@ export default EditInfor = function ({ navigation }) {
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
   const [customerId, setCustomerId] = useState("");
-  const [adminId, setAdminId] = useState("");
 
   useEffect(() => {
     getData();
@@ -46,22 +45,6 @@ export default EditInfor = function ({ navigation }) {
             });
         }
       });
-      // AsyncStorage.getItem("AdminID").then((val) => {
-      //   if (val) {
-      //     AdminRepo.getAdminByID(val)
-      //       .then((result) => {
-      //         setUsername(result.name);
-      //         setPhone(result.phone_number);
-      //         setEmail(result.email);
-      //         setPassword(result.password);
-      //         setConfirmPassword(result.password);
-      //         setAdminId(result.id);
-      //       })
-      //       .catch((error) => {
-      //         console.error("Error fetching admin:", error);
-      //       });
-      //   }
-      // });
     } catch (error) {
       console.log(error);
     }
@@ -122,16 +105,6 @@ export default EditInfor = function ({ navigation }) {
           console.error("Error updating customer:", error);
         });
     }
-
-    // if (adminId !== "") {
-    //   AdminRepo.updateAdmin(username, phone, password, email, adminId)
-    //     .then((result) => {
-    //       console.log(result);
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error updating admin:", error);
-    //     });
-    // }
 
     alert("Update successfully!");
     navigation.navigate("Information", {render: true});

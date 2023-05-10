@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,32 +7,48 @@ import {
   Dimensions,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import axios from "axios";
 import LottieView from "lottie-react-native";
-const AIO_USERNAME = "doanladeproject";
-const abc = "aio_Xein14SxFalZ412rCRLTAaljvEaQ";
-const AIO_FEED = "led";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import AdminRepo from "../repositories/AdminRepo";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const ControlPage = () => {
-  const [selectedValue, setSelectedValue] = useState("white");
-  const updateLightStatus = (value) => {
-    axios
-      .post(
-        `https://io.adafruit.com/api/v2/${AIO_USERNAME}/feeds/${AIO_FEED}/data`,
-        {
-          value,
-        },
-        {
-          headers: {
-            "X-AIO-Key": abc,
-            "Content-Type": "application/json",
-          },
+  const [adminId, setAdminId] = useState("");
+  const [color, setColor] = useState("");
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = () => {
+    try {
+      AsyncStorage.getItem("AdminID").then((val) => {
+        if (val) {
+          AdminRepo.getAdminByID(val)
+            .then((result) => {
+              setAdminId(result.id);
+              setColor(result.light_color);
+            })
+            .catch((error) => {
+              console.error("Error fetching admin:", error);
+            });
         }
-      )
-      .then((response) => console.log(response))
-      .catch((error) => console.error(error));
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateLightStatus = (color) => {
+    AdminRepo.updateColorByID(color, adminId)
+      .then((result) => {
+        alert("Change color successfully");
+        console.log(result);
+      })
+      .catch((error) => {
+        console.error("Error updating admin:", error);
+      });
   };
 
   return (
@@ -47,8 +63,8 @@ const ControlPage = () => {
       <Text style={styles.textPicker}>Choose the color</Text>
       <Picker
         style={styles.picker}
-        selectedValue={selectedValue}
-        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+        selectedValue={color}
+        onValueChange={(itemValue) => setColor(itemValue)}
         itemStyle={styles.pickerItem}
       >
         <Picker.Item label="Red" value="red" />
@@ -57,12 +73,16 @@ const ControlPage = () => {
         <Picker.Item label="Yellow" value="yellow" />
         <Picker.Item label="Blue" value="blue" />
         <Picker.Item label="Orange" value="orange" />
+        <Picker.Item label="Indigo" value="indigo" />
+        <Picker.Item label="Purple" value="purple" />
       </Picker>
       <TouchableOpacity
         style={[styles.controlButton, { backgroundColor: "orange" }]}
-        onPress={updateLightStatus(selectedValue)}
+        onPress={() => updateLightStatus(color)}
       >
-        <Text style={styles.buttonText}>Change Color</Text>
+        <Text style={styles.buttonText}>
+          Change Color
+        </Text>
       </TouchableOpacity>
     </View>
   );

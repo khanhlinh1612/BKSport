@@ -39,8 +39,6 @@ export default Information = function ({ route, navigation }) {
     getData();
   }, [route.params]);
 
-  // console.log(info);
-
   const getData = () => {
     try {
       AsyncStorage.getItem("CustomerID").then((val) => {
@@ -79,7 +77,7 @@ export default Information = function ({ route, navigation }) {
         </View>
 
         <View style={styles.scheduleList}>
--          <TouchableOpacity
+          <TouchableOpacity
             onPress={() => navigation.navigate("Edit Infor")}
             style={{ flexDirection: "row", marginLeft: 120 }}
           >

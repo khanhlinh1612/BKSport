@@ -93,7 +93,7 @@ export default ViewFeedback = function ({ navigation }) {
       
         }}
       >
-        Date:{item.feedback_date_time}
+        Date:{" "}{item.feedback_date_time}
       </Text>
     </TouchableOpacity>
   );

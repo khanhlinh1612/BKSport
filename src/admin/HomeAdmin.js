@@ -63,16 +63,12 @@ export default Home_Admin = function ({ navigation }) {
     return hour + ":" + minute;
   };
 
-  const handleCheckTime = (date_time, start_time) => {
+  const handleCheckTime = (start_time) => {
     var time = new Date();
     time = JSON.stringify(time);
     time = time.slice(1, -1);
-    var year = Number(time.substring(0, 4));
-    var month = Number(time.substring(5, 7));
-    var date = Number(time.substring(8, 10));
     var hour = Number(time.substring(11, 13));
     var minute = Number(time.substring(14, 16));
-    var reserved_date = date_time.split("-");
     var reserved_time = start_time.split(":");
 
     hour = hour - 17;
@@ -80,31 +76,10 @@ export default Home_Admin = function ({ navigation }) {
       hour += 24;
     }
 
-    if (year > Number(reserved_date[2])) {
-      return false;
-    }
-    if (year === Number(reserved_date[2]) && month > Number(reserved_date[1])) {
+    if (hour > Number(reserved_time[0])) {
       return false;
     }
     if (
-      year === Number(reserved_date[2]) &&
-      month === Number(reserved_date[1]) &&
-      date > Number(reserved_date[0])
-    ) {
-      return false;
-    }
-    if (
-      year === Number(reserved_date[2]) &&
-      month === Number(reserved_date[1]) &&
-      date === Number(reserved_date[0]) &&
-      hour > Number(reserved_time[0])
-    ) {
-      return false;
-    }
-    if (
-      year === Number(reserved_date[2]) &&
-      month === Number(reserved_date[1]) &&
-      date === Number(reserved_date[0]) &&
       hour === Number(reserved_time[0]) &&
       minute > Number(reserved_time[1])
     ) {
@@ -116,7 +91,7 @@ export default Home_Admin = function ({ navigation }) {
   const RenderCalendar = () => {
     var list = [];
     sched.map((item, index) => {
-      let flag = handleCheckTime(item.date_time, item.start_time);
+      let flag = handleCheckTime(item.start_time);
       if (flag) {
         list.push(
           <View style={styles.calendar_list} key={index}>
@@ -126,7 +101,7 @@ export default Home_Admin = function ({ navigation }) {
               color="#ffffff"
               style={{ marginRight: 10 }}
             />
-            <Text style={styles.text_list}>{item.date_time}</Text>
+            <Text style={styles.text_list}>{item.name}</Text>
             <Text style={styles.text_list1}>
               {handleTime(item.start_time, item.duration, true)} -{" "}
               {handleTime(item.start_time, item.duration, false)}
@@ -156,15 +131,15 @@ export default Home_Admin = function ({ navigation }) {
             .catch((error) => {
               console.error("Error fetching admin:", error);
             });
-          PumpSchedRepo.getPumpSchedByAdminID(val)
-            .then((result) => {
-              setSched(result);
-            })
-            .catch((error) => {
-              console.error("Error fetching schedule:", error);
-            });
         }
       });
+      PumpSchedRepo.getAllPumpSched()
+        .then((result) => {
+          setSched(result);
+        })
+        .catch((error) => {
+          console.error("Error fetching schedule:", error);
+        });
     } catch (error) {
       console.log(error);
     }

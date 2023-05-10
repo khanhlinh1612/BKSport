@@ -4,6 +4,7 @@ import Welcome from "./src/general/Welcome";
 import Weather from "./src/user/Weather";
 import Home from "./src/user/Home";
 import Login from "./src/general/Login";
+import HandleReq from "./src/general/HanldeReq";
 import Register from "./src/general/Register";
 import Calendar from "./src/user/Calendar";
 import Addtask from "./src/user/Addtask";
@@ -56,6 +57,8 @@ async function openDatabase() {
 
   return SQLite.openDatabase("BKSPORT.db");
 }
+
+const database = openDatabase();
 
 function MyDrawer() {
   return (
@@ -132,15 +135,8 @@ function MyDrawer1() {
 }
 
 export default function App() {
-  const [db, setDb] = useState(null);
 
-  useEffect(() => {
-    async function loadDatabase() {
-      const database = await openDatabase();
-      setDb(database);
-    }
-    loadDatabase();
-  }, []);
+  // HandleReq();
 
   return (
     <NavigationContainer>

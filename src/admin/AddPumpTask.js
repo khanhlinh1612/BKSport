@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -12,11 +12,13 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { Picker } from "@react-native-picker/picker";
 import LottieView from "lottie-react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import PumpSchedRepo from "../repositories/PumpSchedRepo";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-export default AddPumpTask = function ({ navigation }) {
+export default AddPumpTask = function ({ route, navigation }) {
   const showTimePicker = () => {
     setTimePickerVisible(true);
   };
@@ -30,9 +32,93 @@ export default AddPumpTask = function ({ navigation }) {
     setTimePickerVisible(false);
   };
 
+  const pumpSched = route.params.sched;
+
   const [isTimePickerVisible, setTimePickerVisible] = useState(false);
   const [selectedTime, setSelectedTime] = useState(new Date());
   const [duration, setDuration] = useState("5");
+  const [topic, setTopic] = useState("");
+  const [adminID, setAdminID] = useState("");
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = () => {
+    try {
+      AsyncStorage.getItem("AdminID").then((val) => {
+        if (val) {
+          setAdminID(val);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const convertTimeToNumber = (time) => {
+    var timeArr = time.split(":");
+    return Number(timeArr[0]) * 60 + Number(timeArr[1]);
+  };
+
+  const checkOverlapSched = (stime, duration) => {
+    var flag = false;
+    pumpSched.map((item) => {
+      var reserved_start_time = convertTimeToNumber(stime);
+      var reserved_end_time = reserved_start_time + Number(duration);
+      var start_time = convertTimeToNumber(item.start_time);
+      var end_time = start_time + Number(item.duration);
+      if (
+        (reserved_end_time > start_time && reserved_end_time <= end_time) ||
+        (reserved_start_time >= start_time && reserved_start_time < end_time) ||
+        (reserved_start_time >= start_time && reserved_end_time <= end_time)
+      ) {
+        flag = true;
+      }
+    });
+    return flag;
+  };
+
+  const handleAddTask = () => {
+    if (topic.length === 0) {
+      alert("Please enter Topic / Name!");
+      return;
+    }
+
+    if (topic.length > 20) {
+      alert("Topic / Name too long!");
+      return;
+    }
+
+    start_time = JSON.stringify(selectedTime);
+    start_time = start_time.slice(1, -1);
+    start_hour = Number(start_time.substring(11, 13));
+    start_hour = start_hour - 17;
+    if (start_hour < 0) {
+      start_hour += 24;
+    }
+    if (start_hour < 10) {
+      start_hour = "0" + start_hour.toString();
+    } else {
+      start_hour = start_hour.toString();
+    }
+    start_time = start_hour + start_time.substring(13, 16) + ":00";
+
+    if (checkOverlapSched(start_time, duration)) {
+      alert("Overlap pumping schedule!");
+      return;
+    }
+
+    PumpSchedRepo.createPumpSched(topic, start_time, duration, adminID)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.error("Error fetching schedule:", error);
+      });
+
+    navigation.navigate("Watering System", { render: true })
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -61,9 +147,10 @@ export default AddPumpTask = function ({ navigation }) {
             fontWeight: "500",
           }}
           placeholderTextColor="#666666"
+          onChangeText={(itemValue) => setTopic(itemValue)}
         />
       </View>
-      
+
       <View style={styles.pickerContainer}>
         <Text style={styles.textPicker}>Select start time and duration</Text>
         <View style={styles.selectCalendar}>
@@ -88,7 +175,7 @@ export default AddPumpTask = function ({ navigation }) {
         </View>
         <Picker
           selectedValue={duration}
-          onValueChange={(itemValue, itemIndex) => setDuration(itemValue)}
+          onValueChange={(itemValue) => setDuration(itemValue)}
           style={{ height: 50, width: 240 }}
           itemStyle={styles.pickerItem}
         >
@@ -98,12 +185,18 @@ export default AddPumpTask = function ({ navigation }) {
           <Picker.Item label="20 min" value="20" />
           <Picker.Item label="25 min" value="25" />
           <Picker.Item label="30 min" value="30" />
+          <Picker.Item label="35 min" value="35" />
+          <Picker.Item label="40 min" value="40" />
+          <Picker.Item label="45 min" value="45" />
+          <Picker.Item label="50 min" value="50" />
+          <Picker.Item label="55 min" value="55" />
+          <Picker.Item label="60 min" value="60" />
         </Picker>
       </View>
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Watering System")}
+          onPress={() => handleAddTask()}
           style={styles.button1}
         >
           <Text style={styles.buttonText1}>Add Task</Text>
@@ -122,11 +215,11 @@ const styles = StyleSheet.create({
     flex: 1.5,
   },
   pumpImage: {
-    marginTop:'2.5%',
+    marginTop: "2.5%",
     width: 0.25 * windowWidth,
     height: 0.25 * windowHeight,
     marginBottom: 20,
-    alignSelf:'center',
+    alignSelf: "center",
   },
   // CSS Topic's Name
   topic: {
@@ -173,7 +266,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "#329B24",
   },
-  // CSS scroll time 
+  // CSS scroll time
   pickerItem: {
     fontSize: 24,
     fontWeight: "500",
@@ -187,7 +280,7 @@ const styles = StyleSheet.create({
   },
   // CSS nút xác nhận
   buttonContainer: {
-    flex: .5,
+    flex: 0.5,
     justifyContent: "center",
   },
   button1: {
