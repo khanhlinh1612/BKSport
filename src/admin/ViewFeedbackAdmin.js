@@ -90,10 +90,10 @@ export default ViewFeedback = function ({ navigation }) {
           color: "#000",
           fontWeight: 400,
           marginTop: 4,
-          marginLeft: 200,
+      
         }}
       >
-        {item.feedback_date_time}
+        Date:{item.feedback_date_time}
       </Text>
     </TouchableOpacity>
   );

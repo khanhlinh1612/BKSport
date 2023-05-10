@@ -68,15 +68,18 @@ export default function ManageCustomer({ navigation }) {
           <TouchableOpacity
             onPress={() => alert_delete(item.id)}
             style={{
-              flexDirection: "column",
-              alignContent: "flex-end",
-              marginLeft: 0.48 * width,
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'relative', // thiết lập kiểu position
             }}
           >
-            <Icon name="close" size={25} color="#900" />
+            <Icon name="close" size={25} color="#900" style={{position: 'absolute', 
+            right: 10, 
+            bottom: 3, }}></Icon>
           </TouchableOpacity>
         </View>
-
+        
         <View style={styles.nextMatch}>
           <Text style={styles.nextMatchText}>{item.phone_number}</Text>
           <Text style={styles.nextMatchTime}>{item.email}</Text>

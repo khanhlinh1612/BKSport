@@ -59,7 +59,7 @@ class FeedbackDetail extends React.Component {
 
           <View style={styles.container1}>
             <Text style={styles.text_name}>Title Feedback</Text>
-            <View style={styles.phone}>
+            <View style={styles.title}>
               <Text>{sched.feedback_title}</Text>
             </View>
           </View>
@@ -222,7 +222,7 @@ class FeedbackDetail extends React.Component {
                 padding: 10,
                 borderRadius: 20,
                 height: height * 0.15,
-                width: width * 0.9,
+                width: width * 0.945,
                 backgroundColor: "#FFF9F9",
               }}
             >
@@ -303,7 +303,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 10,
   },
-
+  title: {
+    flexDirection: "row",
+    borderColor: "#deacac",
+    borderWidth: 1,
+    padding: 10,
+    width: width * 0.945,
+    backgroundColor: "#FFF9F9",
+    borderRadius: 10,
+    marginBottom: 10,
+  },
   box: {
     backgroundColor: "#fff",
     padding: 20,
