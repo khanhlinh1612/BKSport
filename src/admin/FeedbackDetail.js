@@ -9,9 +9,12 @@ import {
   TextInput,
   SafeAreaView,
 } from "react-native";
+import moment from "moment";
 import LottieView from "lottie-react-native"; //animation
 import Modal from "react-native-modal";
 const { width, height } = Dimensions.get("screen");
+const date1 = moment();
+const formattedDate1 = date1.format("DD-MM-YYYY");
 class FeedbackDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -39,6 +42,9 @@ class FeedbackDetail extends React.Component {
           speed={1}
           style={styles.logo1}
         />
+        <View style={styles.time1}>
+        <Text style={styles.date}>{formattedDate1}</Text>
+        </View>
         <View style={styles.mainbox}>
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
@@ -265,6 +271,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#f5f5f5",
     padding: 5,
+  },
+  time1: {
+    borderRadius: 30,
+    textAlign: "center",
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 250,
+    height: 30,
+    backgroundColor: "#ffe2e2",
+    fontWeight: "bold",
+    fontSize: 10,
+  },
+  date: {
+    fontWeight: "bold",
   },
   logo1: {
     width: width * 0.8,
