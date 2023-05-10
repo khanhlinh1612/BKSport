@@ -54,17 +54,6 @@ export default Information = function ({ route, navigation }) {
             });
         }
       });
-      // AsyncStorage.getItem("AdminID").then((val) => {
-      //   if (val) {
-      //     AdminRepo.getAdminByID(val)
-      //       .then((result) => {
-      //         setInfo(result);
-      //       })
-      //       .catch((error) => {
-      //         console.error("Error fetching admin:", error);
-      //       });
-      //   }
-      // });
     } catch (error) {
       console.log(error);
     }
@@ -90,8 +79,7 @@ export default Information = function ({ route, navigation }) {
         </View>
 
         <View style={styles.scheduleList}>
-          {/* render list of schedules */}
-          <TouchableOpacity
+-          <TouchableOpacity
             onPress={() => navigation.navigate("Edit Infor")}
             style={{ flexDirection: "row", marginLeft: 120 }}
           >

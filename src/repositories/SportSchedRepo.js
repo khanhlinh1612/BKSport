@@ -20,12 +20,46 @@ const SportSchedRepo = {
     });
   },
 
+  getAllSportSched: () => {
+    return new Promise((resolve, reject) => {
+      db.transaction((tx) => {
+        tx.executeSql(
+          'SELECT * FROM sport_schedule',
+          [],
+          (_, result) => {
+            resolve(result.rows._array);
+          },
+          (_, error) => {
+            reject(error);
+          }
+        );
+      });
+    });
+  },
+
   createSportSched: (name, category, date_time, start_time, uid, duration) => {
     return new Promise((resolve, reject) => {
       db.transaction((tx) => {
         tx.executeSql(
           'INSERT INTO sport_schedule (name, category, date_time, start_time, uid, admin_id, duration) VALUES (?, ?, ?, ?, ?, NULL, ?)',
           [name, category, date_time, start_time, uid, duration],
+          (_, result) => {
+            resolve(result);
+          },
+          (_, error) => {
+            reject(error);
+          }
+        );
+      });
+    });
+  },
+
+  createSuggestionSportSched: (name, category, date_time, start_time, uid, admin_id, duration) => {
+    return new Promise((resolve, reject) => {
+      db.transaction((tx) => {
+        tx.executeSql(
+          'INSERT INTO sport_schedule (name, category, date_time, start_time, uid, admin_id, duration) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          [name, category, date_time, start_time, uid, admin_id, duration],
           (_, result) => {
             resolve(result);
           },
