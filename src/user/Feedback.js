@@ -43,7 +43,8 @@ export default Feedback = function ({ route, navigation }) {
       .catch((error) => {
         console.error("Error updating schedule:", error);
       });
-  };
+      navigation.navigate("Calendar Management");
+    };
 
   useEffect(() => {
     getData();

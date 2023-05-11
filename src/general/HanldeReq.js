@@ -4,7 +4,7 @@ import AdminRepo from "../repositories/AdminRepo";
 import axios from "axios";
 
 const username = "deltora";
-const aioKey = "aio_xvKh78C2PjEvGg1Iph5MukmmQ4YV";
+const aioKey = "aio_KYfk77DOSrSOUKSr93SpXhcGtstV";
 const NTPKey = "bksport-ntp";
 const OTPKey = "bksport-otp";
 var sportSched = [];
@@ -13,9 +13,11 @@ var adminID = 1;
 var color = "red";
 
 export default HanldeReq = function () {
+
   setInterval(() => {
     const delay = 2000;
     const delayFunction = async () => {
+      await new Promise((resolve) => setTimeout(resolve, delay));
       handleSportSched();
       await new Promise((resolve) => setTimeout(resolve, delay));
       handlePumpSched();
@@ -25,9 +27,10 @@ export default HanldeReq = function () {
       getDataPumpSched();
       await new Promise((resolve) => setTimeout(resolve, delay));
       getColorByAdminID();
+      await new Promise((resolve) => setTimeout(resolve, delay));
     };
     delayFunction();
-  }, 10000);
+  }, 14000);
 
   const handleSportTime = (date_time, start_time) => {
     var time = new Date();
@@ -141,6 +144,7 @@ export default HanldeReq = function () {
         handleSportTime(item.date_time, item.start_time) &&
         item.verification === 1
       ) {
+        handleVerification(item.id);
         sendOTPToAdafruit(color);
       }
     });
@@ -178,6 +182,16 @@ export default HanldeReq = function () {
     AdminRepo.getAdminByID(adminID)
       .then((result) => {
         color = result.light_color;
+      })
+      .catch((error) => {
+        console.error("Error fetching schedule:", error);
+      });
+  };
+
+  const handleVerification = (id) => {
+    SportSchedRepo.updateNotVerificationByID(id)
+      .then((result) => {
+        console.log(result);
       })
       .catch((error) => {
         console.error("Error fetching schedule:", error);

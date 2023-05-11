@@ -6,11 +6,11 @@ import axios from "axios";
 import LottieView from "lottie-react-native";
 
 const url1 =
-  "https://io.adafruit.com/api/v2/doanladeproject/feeds/temp/data?limit=1";
+  "https://io.adafruit.com/api/v2/deltora/feeds/bksport-temp/data?limit=1";
 const url2 =
-  "https://io.adafruit.com/api/v2/doanladeproject/feeds/humid/data?limit=1";
+  "https://io.adafruit.com/api/v2/deltora/feeds/bksport-humid/data?limit=1";
 const url3 =
-  "https://io.adafruit.com/api/v2/doanladeproject/feeds/light/data?limit=1";
+  "https://io.adafruit.com/api/v2/deltora/feeds/bksport-light/data?limit=1";
 export default function Weather() {
   const navigation = useNavigation();
   const [temparature, setData] = useState(null);

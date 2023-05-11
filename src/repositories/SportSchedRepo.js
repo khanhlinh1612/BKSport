@@ -156,6 +156,23 @@ const SportSchedRepo = {
     });
   },
 
+  updateNotVerificationByID: (id) => {
+    return new Promise((resolve, reject) => {
+      db.transaction((tx) => {
+        tx.executeSql(
+          'UPDATE sport_schedule SET verification = 0 WHERE id = ?',
+          [id],
+          (_, result) => {
+            resolve(result);
+          },
+          (_, error) => {
+            reject(error);
+          }
+        );
+      });
+    });
+  },
+
 };
 
 export default SportSchedRepo;
