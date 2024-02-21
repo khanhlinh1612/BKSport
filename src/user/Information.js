@@ -8,7 +8,6 @@ import {
   ImageBackground,
 } from "react-native";
 import CustomerRepo from "../repositories/CustomerRepo";
-import AdminRepo from "../repositories/AdminRepo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/FontAwesome";
 import LottieView from "lottie-react-native";
@@ -28,15 +27,17 @@ const render_calendar = (iconname, name, value) => {
     </View>
   );
 };
-export default Information = function ({ navigation }) {
+export default Information = function ({ route, navigation }) {
 
   const [info, setInfo] = useState(null);
 
   useEffect(() => {
     getData();
-  });
+  }, []);
 
-  // console.log(info);
+  useEffect(() => {
+    getData();
+  }, [route.params]);
 
   const getData = () => {
     try {
@@ -48,17 +49,6 @@ export default Information = function ({ navigation }) {
             })
             .catch((error) => {
               console.error("Error fetching customer:", error);
-            });
-        }
-      });
-      AsyncStorage.getItem("AdminID").then((val) => {
-        if (val) {
-          AdminRepo.getAdminByID(val)
-            .then((result) => {
-              setInfo(result);
-            })
-            .catch((error) => {
-              console.error("Error fetching admin:", error);
             });
         }
       });
@@ -87,7 +77,6 @@ export default Information = function ({ navigation }) {
         </View>
 
         <View style={styles.scheduleList}>
-          {/* render list of schedules */}
           <TouchableOpacity
             onPress={() => navigation.navigate("Edit Infor")}
             style={{ flexDirection: "row", marginLeft: 120 }}

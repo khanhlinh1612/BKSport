@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import LottieView from "lottie-react-native";
+import CustomerRepo from "../repositories/CustomerRepo";
 
 const render_calendar = (iconname, name, value) => {
   return (
@@ -26,7 +27,30 @@ const render_calendar = (iconname, name, value) => {
   );
 };
 
-export default CustomerDetail = function ({ navigation }) {
+export default CustomerDetail = function ({ route, navigation }) {
+
+  const customerID = route.params.id;
+
+  const [customer, setCustomer] = useState(null);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = () => {
+    try {
+      CustomerRepo.getCustomerByID(customerID)
+        .then((result) => {
+          setCustomer(result);
+        })
+        .catch((error) => {
+          console.error("Error fetching customer:", error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <ImageBackground
       source={require("../../img/background2.jpg")}
@@ -43,21 +67,21 @@ export default CustomerDetail = function ({ navigation }) {
           />
         </View>
         <View style={styles.userInfoContainer}>
-          <Text style={styles.userName}>Lumine</Text>
+          <Text style={styles.userName}>{customer ? customer.name : ""}</Text>
         </View>
 
         <View style={styles.scheduleList}>
           {/* render list of schedules */}
-          {render_calendar("user", "Username", "Lumine")}
-          {render_calendar("envelope", "Email", "lumine@gmail.com")}
-          {render_calendar("phone", "Phone number", "0123456789")}
-          {render_calendar("lock", "Password", "lumine123")}
+          {render_calendar("user", "Username", customer ? customer.name : "")}
+          {render_calendar("envelope", "Email", customer ? customer.email : "")}
+          {render_calendar("phone", "Phone number", customer ? customer.phone_number : "")}
+          {render_calendar("lock", "Password", customer ? customer.password : "")}
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Customer's Calendar")}
+          onPress={() => navigation.navigate("Customer's Calendar", { id: customerID })}
           style={{ flexDirection: "row", marginLeft: 140, marginBottom: 15 }}
         >
-          <Text style={styles.Text_page}>Show my calendar</Text>
+          <Text style={styles.Text_page}>Show customer calendar</Text>
           <Icon
             name="arrow-right"
             size={20}

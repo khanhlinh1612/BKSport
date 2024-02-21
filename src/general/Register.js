@@ -11,6 +11,7 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 const { width, height } = Dimensions.get("screen");
 import CustomerRepo from "../repositories/CustomerRepo";
+import AdminRepo from "../repositories/AdminRepo";
 
 export default Register = function ({ navigation }) {
   const [username, setUsername] = useState("");
@@ -19,6 +20,7 @@ export default Register = function ({ navigation }) {
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmpassword] = useState("");
   const [customer, setCustomer] = useState([]);
+  const [admin, setAdmin] = useState([]);
 
   useEffect(() => {
     CustomerRepo.getAllCustomer()
@@ -27,6 +29,13 @@ export default Register = function ({ navigation }) {
       })
       .catch((error) => {
         console.error("Error fetching customer:", error);
+      });
+    AdminRepo.getAllAdmin()
+      .then((result) => {
+        setAdmin(result);
+      })
+      .catch((error) => {
+        console.error("Error fetching admin:", error);
       });
   }, []);
 
@@ -58,6 +67,13 @@ export default Register = function ({ navigation }) {
     }
 
     customer.map((ele) => {
+      if (ele.name === username) {
+        alert("Username was used, please enter another username!");
+        flag = true;
+      }
+    });
+
+    admin.map((ele) => {
       if (ele.name === username) {
         alert("Username was used, please enter another username!");
         flag = true;

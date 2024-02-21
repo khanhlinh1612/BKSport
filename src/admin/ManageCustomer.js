@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   SafeAreaView,
@@ -7,97 +7,84 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
-  Alert
+  Dimensions,
+  Alert,
 } from "react-native";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from "react-native-vector-icons/FontAwesome";
+import CustomerRepo from "../repositories/CustomerRepo";
 
+const { width, height } = Dimensions.get("screen");
 export default function ManageCustomer({ navigation }) {
-  const alert_delete = () => {
-    Alert.alert(
-      'Warning',
-      'Are you sure you want to delete this user? ',
-  [   { text: 'OK', onPress: () => console.log('OK Pressed') }  ]
-    );
-  }
-  const DATA = [
-    {
-      id: "1",
-      name: "User 1",
-      avatar: "https://thuthuatnhanh.com/wp-content/uploads/2022/07/anh-avatar-dep-chat-nu-390x390.jpg",
-      nextMatch: "Tuesday, 09:30 AM",
-    },
-    {
-      id: "2",
-      name: "User 2",
-      avatar: "https://thuthuatnhanh.com/wp-content/uploads/2022/07/anh-avatar-dep-chat-nu-390x390.jpg",
-      nextMatch: "Wednesday, 10:00 AM",
-    },
-    {
-      id: "3",
-      name: "User 3",
-      avatar: "https://thuthuatnhanh.com/wp-content/uploads/2022/07/anh-avatar-dep-chat-nu-390x390.jpg",
-      nextMatch: "Thursday, 11:00 PM",
-    },
-    {
-      id: "4",
-      name: "User 4",
-      avatar: "https://thuthuatnhanh.com/wp-content/uploads/2022/07/anh-avatar-dep-chat-nu-390x390.jpg",
-      nextMatch: "Tuesday, 09:30 AM",
-    },
-    {
-      id: "5",
-      name: "User 5",
-      avatar: "https://thuthuatnhanh.com/wp-content/uploads/2022/07/anh-avatar-dep-chat-nu-390x390.jpg",
-      nextMatch: "Wednesday, 10:00 AM",
-    },
-    {
-      id: "6",
-      name: "User 6",
-      avatar: "https://thuthuatnhanh.com/wp-content/uploads/2022/07/anh-avatar-dep-chat-nu-390x390.jpg",
-      nextMatch: "Thursday, 11:00 PM",
-    },
-    {
-      id: "7",
-      name: "User 7",
-      avatar: "https://thuthuatnhanh.com/wp-content/uploads/2022/07/anh-avatar-dep-chat-nu-390x390.jpg",
-      nextMatch: "Tuesday, 09:30 AM",
-    },
-    {
-      id: "8",
-      name: "User 8",
-      avatar: "https://thuthuatnhanh.com/wp-content/uploads/2022/07/anh-avatar-dep-chat-nu-390x390.jpg",
-      nextMatch: "Wednesday, 10:00 AM",
-    },
-    {
-      id: "9",
-      name: "User 9",
-      avatar: "https://thuthuatnhanh.com/wp-content/uploads/2022/07/anh-avatar-dep-chat-nu-390x390.jpg",
-      nextMatch: "Thursday, 11:00 PM",
-    },
-  ];
+  const [customer, setCustomer] = useState([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = () => {
+    try {
+      CustomerRepo.getAllCustomer()
+        .then((result) => {
+          setCustomer(result);
+        })
+        .catch((error) => {
+          console.error("Error fetching customer:", error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const alert_delete = (id) => {
+    Alert.alert("Warning", "Are you sure you want to delete this user? ", [
+      {
+        text: "OK",
+        onPress: () => {
+          try {
+            CustomerRepo.deleteCustomerByID(id)
+              .then((result) => {
+                getData();
+              })
+              .catch((error) => {
+                console.error("Error deleting customer:", error);
+              });
+          } catch (error) {
+            console.log(error);
+          }
+        },
+      },
+    ]);
+  };
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.item}
-      onPress={() => navigation.navigate("Customer's Detail")}
+      onPress={() => navigation.navigate("Customer's Detail", { id: item.id })}
     >
       <Image source={{ uri: item.avatar }} style={styles.avatar} />
       <View style={styles.info}>
-        <View style={{flexDirection:'row'}}>
-            <Text style={styles.name}>{item.name}</Text>
-              <TouchableOpacity onPress={alert_delete} style={{flexDirection:'column' , alignContent:'flex-end', marginLeft:180}}>
-              <Icon name="close" size={25}  color="#900" />
-              </TouchableOpacity>
-            
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.name}>{item.name}</Text>
+          <TouchableOpacity
+            onPress={() => alert_delete(item.id)}
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'relative', // thiết lập kiểu position
+            }}
+          >
+            <Icon name="close" size={25} color="#900" style={{position: 'absolute', 
+            right: 10, 
+            bottom: 3, }}></Icon>
+          </TouchableOpacity>
         </View>
         
         <View style={styles.nextMatch}>
-          <Text style={styles.nextMatchText}>Next match</Text>
-          <Text style={styles.nextMatchTime}>{item.nextMatch}</Text>
+          <Text style={styles.nextMatchText}>{item.phone_number}</Text>
+          <Text style={styles.nextMatchTime}>{item.email}</Text>
         </View>
-        
       </View>
-
     </TouchableOpacity>
   );
 
@@ -105,7 +92,7 @@ export default function ManageCustomer({ navigation }) {
     <SafeAreaView style={styles.container}>
       <View style={styles.flatlistView}>
         <FlatList
-          data={DATA}
+          data={customer}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           contentContainerStyle={styles.list}
@@ -150,7 +137,7 @@ const styles = StyleSheet.create({
   },
   info: {
     flex: 1,
-    flexDirection:'column',
+    flexDirection: "column",
   },
   name: {
     fontSize: 16,

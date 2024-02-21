@@ -37,12 +37,12 @@ const AdminRepo = {
     });
   },
 
-  updateAdmin: (name, phone_number, password, email, id) => {
+  updateColorByID: (color, id) => {
     return new Promise((resolve, reject) => {
       db.transaction((tx) => {
         tx.executeSql(
-          'UPDATE admin SET name = ?, phone_number = ?, password = ?, email = ? WHERE id = ?',
-          [name, phone_number, password, email, id],
+          'UPDATE admin SET light_color = ? WHERE id = ?',
+          [color, id],
           (_, result) => {
             resolve(result);
           },

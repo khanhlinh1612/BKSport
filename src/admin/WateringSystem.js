@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -10,46 +10,40 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import CalendarStrip from "react-native-calendar-strip";
+import PumpSchedRepo from "../repositories/PumpSchedRepo";
 const { width, height } = Dimensions.get("screen");
 
-export default WateringSystem = function ({ navigation }) {
-  const events = [
-    {
-      id: 1,
-      title: "Tưới nước lần 1",
-      time: "30 minutes",
-    },
-    {
-      id: 2,
-      title: "Tưới nước lần 2",
-      time: "10 minutes",
-    },
-    {
-      id: 3,
-      title: "Tưới nước lần 3",
-      time: "20 minutes",
-    },
-    {
-      id: 4,
-      title: "Tưới nước lần 4",
-      time: "40 minutes",
-    },
-    {
-      id: 5,
-      title: "Tưới nước lần 5",
-      time: "50 minutes",
-    },
-    {
-      id: 6,
-      title: "Tưới nước lần 6",
-      time: "60 minutes",
-    },
-  ];
+export default WateringSystem = function ({ route, navigation }) {
+
+  const [pumpSched, setPumpSched] = useState([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [route.params]);
+
+  const getData = () => {
+    try {
+      PumpSchedRepo.getAllPumpSched()
+        .then((result) => {
+          setPumpSched(result);
+        })
+        .catch((error) => {
+          console.error("Error fetching schedule:", error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const renderItem = ({ item }) => (
     <View style={styles.eventItem}>
-      <Text style={styles.eventTitle}>{item.title}</Text>
-      <Text style={styles.eventTime}>{item.time}</Text>
+      <Text style={styles.eventTitle}>{item.name}</Text>
+      <Text style={styles.eventTime}>{`Start time: ${item.start_time}`}</Text>
+      <Text style={styles.eventTime}>{`Duration: ${item.duration} minutes`}</Text>
     </View>
   );
 
@@ -73,7 +67,7 @@ export default WateringSystem = function ({ navigation }) {
       </View>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate("Add Pump Task")}
+        onPress={() => navigation.navigate("Add Pump Task", { sched: pumpSched })}
         style={styles.button1}
       >
         <Icon name="plus" size={16} color="#fff" style={styles.icon} />
@@ -82,7 +76,7 @@ export default WateringSystem = function ({ navigation }) {
 
       <View style={styles.eventListContainer}>
         <FlatList
-          data={events}
+          data={pumpSched}
           renderItem={renderItem}
           keyExtractor={(item) => item.id.toString()}
           contentContainerStyle={styles.eventList}

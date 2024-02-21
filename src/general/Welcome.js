@@ -12,28 +12,6 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 export default Welcome = function ({ navigation }) {
 
-  // const [customerID, setCustomerID] = useState('');
-  // const [adminID, setAdminID] = useState('');
-
-  // useEffect(() => {
-  //   getData();
-  //   console.log("customer", customerID);
-  //   console.log("admin", adminID);
-  // })
-
-  // const getData = async () => {
-  //   try {
-  //     await AsyncStorage.getItem("CustomerID").then((val) => {
-  //       setCustomerID(val);
-  //     });
-  //     await AsyncStorage.getItem("AdminID").then((val) => {
-  //       setAdminID(val);
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   return (
     <View style={styles.container}>
       <Image source={require("../../img/home.jpg")} style={styles.logo} />

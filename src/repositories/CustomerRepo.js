@@ -72,6 +72,23 @@ const CustomerRepo = {
     });
   },
 
+  deleteCustomerByID: (id) => {
+    return new Promise((resolve, reject) => {
+      db.transaction((tx) => {
+        tx.executeSql(
+          'DELETE FROM customer WHERE id = ?',
+          [id],
+          (_, result) => {
+            resolve(result);
+          },
+          (_, error) => {
+            reject(error);
+          }
+        );
+      });
+    });
+  },
+
 };
 
 export default CustomerRepo;
